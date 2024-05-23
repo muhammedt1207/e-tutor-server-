@@ -1,0 +1,39 @@
+{
+  "name": "auth-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --exec ts-node -r tsconfig-paths/register src/index.ts",
+    "build": "tsc",
+    "watch": "tsc --watch",
+    "start": "node dist/index.ts",
+    "start:dev": "concurrently --kill-other-on-fail \"yarn watch\" \"yarn dev\""
+  },
+  "dependencies": {
+    "@react-oauth/google": "^0.12.1",
+    "bcrypt": "^5.1.1",
+    "cookie-parser": "^1.4.6",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "kafkajs": "^2.2.4",
+    "mongoose": "^8.3.2",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.0",
+    "react-oauth": "^0.0.1",
+    "tsconfig-paths": "^4.2.0",
+    "typescript": "^5.4.5"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^5.0.2",
+    "@types/cookie-parser": "^1.4.7",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.21",
+    "@types/joi": "^17.2.3",
+    "@types/jsonwebtoken": "^9.0.6",
+    "@types/kafkajs": "^1.9.0",
+    "@types/mongoose": "^5.11.97",
+    "@types/morgan": "^1.9.9",
+    "concurrently": "^8.2.2"
+  }
+}
