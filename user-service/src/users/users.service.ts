@@ -69,7 +69,10 @@ export class UsersService {
         profession: instructorData.profession,
         profileDescription: instructorData.profileDescription,
         linkedinLink: instructorData.linkedinLink,
-        githubLink: instructorData.githubLink
+        githubLink: instructorData.githubLink,
+        address:instructorData.Address,
+        idFileUrl:instructorData.idFileUrl,
+        qualificationFileUrl:instructorData.qualificationFileUrl
       });
       console.log('instrcutor application aving....', newInstructor);
 
@@ -111,4 +114,20 @@ export class UsersService {
   //   const newUser =new this.userModel(userData)
   //   return newUser.save();
   // }
+
+  async getInstructorByEmail(userEmail: string): Promise<InstructorApplication | null> {
+    try {
+      console.log('User id :', userEmail);
+      const instructorData = await this.InstructorApplicationModel.findOne({email:userEmail})
+      if (!instructorData) {
+        throw new HttpException('Failed to find instructor', HttpStatus.INTERNAL_SERVER_ERROR);
+      }
+      return instructorData
+
+    } catch (error) {
+      throw new HttpException('Failed to find instructor', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+
 }

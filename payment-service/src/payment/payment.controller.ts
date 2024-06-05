@@ -32,13 +32,16 @@ export class PaymentController {
             courseId,userId,amount
         }=savePaymentData
         console.log(savePaymentData);
-        const result=await this.stripeService.findExistingPayment(courseId,userId,amount)
+        const result=await this.stripeService.findExistingPayment(courseId,userId)
+        console.log(result);
+        
         if(result){
             res.status(400).json({
                 success:false,
                 message:"alredy paid this"
             })
         }
+
         const createdPayment=await this.stripeService.savePayment(savePaymentData)
         if(!createdPayment){
             res.status(200).json({

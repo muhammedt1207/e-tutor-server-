@@ -8,6 +8,8 @@ import { updateProfileController } from "./updateProfile";
 import { forgotPassword } from "./forgotPassword";
 import {  updatePasswordController } from "./updatePassword";
 import { getAllUserController } from "./getAllUser";
+import { getUsersByEmail } from "./getUsersByEmail";
+import { getUserByEmail } from "./getUserByEmail";
 
 export const controllers=(dependancie:IDependencies)=>{
     return{
@@ -19,6 +21,8 @@ export const controllers=(dependancie:IDependencies)=>{
         updatePassword:updatePasswordController(dependancie),
         updateProfile:updateProfileController(dependancie),
         forgotPassword:forgotPassword(dependancie),
-        getAllUserData:getAllUserController(dependancie)
+        getAllUserData:getAllUserController(dependancie),
+        getUsersByEmail:getUsersByEmail(dependancie),
+        getUserByEmail:getUserByEmail(dependancie)
     }
 }

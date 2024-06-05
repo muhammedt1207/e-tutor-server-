@@ -1,5 +1,6 @@
-import { Controller, Get, Query, Res, HttpStatus } from '@nestjs/common';
+import { Controller, Get, Query, Res, HttpStatus, Param } from '@nestjs/common';
 import { EnrollmentService } from './enrollment.service';
+import { NotFoundError } from 'rxjs';
 
 @Controller('enrollment')
 export class EnrollmentController {
@@ -23,4 +24,25 @@ export class EnrollmentController {
       });
     }
   }
+  @Get(':id')
+  async purshasedCourse(@Param('id') id:string, @Res() res){
+    try {
+      console.log('user id:',id);
+      const purchasedCourse=await this.enrollmentService.getPurchasedCourses(id)
+    
+      if(!purchasedCourse){
+        throw new NotFoundError('purchased courses not found')
+      }
+      res.status(200).json({
+        success:true,
+        data:purchasedCourse,
+        message:'purchased courses'
+      })
+      
+    } catch (error) {
+      
+    }
+  }
+  
+ 
 }

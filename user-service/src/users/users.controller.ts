@@ -105,4 +105,25 @@ export class UsersController {
             throw new HttpException('Failed to add instructor', HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @Get('/user/:email')
+    async getUserByEmail(@Param('email') email: string,@Res() res:Response) {
+        try {
+            console.log(email);
+            
+            const user = await this.usersService.getInstructorByEmail(email);
+            if (!user) {
+                throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+            }
+            console.log(user);
+            
+            res.status(HttpStatus.OK).json({
+                success:true,
+                data:user,
+                message:'Applied successfully'
+            })
+        } catch (error) {
+            throw new HttpException('Failed to fetch user by email', HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

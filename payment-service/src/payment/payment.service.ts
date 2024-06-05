@@ -54,10 +54,13 @@ export class StripeService {
     });
   }
 
-  async findExistingPayment(courseId: string, userId: string, amount: number): Promise<Payment> {
-    return this.paymentRepository.findOne({ where: { courseId, userId, amount, confirmed: false } });
+  async findExistingPayment(courseId: string, userId: string): Promise<boolean> {
+    const existingPayment = await this.paymentRepository.findOne({
+      where: { courseId, userId, status: "completed" }
+    });
+  
+    return !!existingPayment;
   }
-
   async savePayment(paymentData: any): Promise<Payment> {
     try {
         console.log(paymentData,'payment data');

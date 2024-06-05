@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException, InternalServerErrorException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { Course } from 'src/schema/course.model';
 import { Enrollment } from 'src/schema/enrollment.model';
 
 @Injectable()
@@ -18,4 +19,22 @@ export class EnrollmentService {
       throw new InternalServerErrorException('Failed to check enrollment');
     }
   }
+
+
+  async getPurchasedCourses(userId:string){
+    try {
+      const courses=await this.enrollmentModel.find({userId:userId}).populate('courseId').exec()
+      if(!courses){
+        throw new NotFoundException('Enrollment Not Found')
+      }
+      console.log(courses);
+      return courses
+    } catch (error) {
+      console.log(error);
+      throw new InternalServerErrorException('Failed to find enrollment');
+      
+    }
+  }
+
+
 }

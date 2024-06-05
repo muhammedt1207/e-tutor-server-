@@ -7,10 +7,11 @@ import { ConsumerService } from './kafka/consumer/consumer.service';
 import { KafkaModule } from './kafka/kafka.module';
 import { EnrollmentService } from './enrollment/enrollment.service';
 import { EnrollmentModule } from './enrollment/enrollment.module';
+import { ReviewAndRatingModule } from './review-and-rating/review-and-rating.module';
 import 'dotenv/config'
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.DB_URL),   CategoryModule, CourseModule, KafkaModule, EnrollmentModule,],
+  imports: [MongooseModule.forRoot(process.env.DB_URL),   CategoryModule, CourseModule, KafkaModule, EnrollmentModule, ReviewAndRatingModule,],
   controllers: [],
   providers: [ConsumerService, EnrollmentService],
 })

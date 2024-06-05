@@ -19,21 +19,27 @@ export class ConsumerService implements OnModuleInit {
 
   async onModuleInit() {
     await this.consumer.connect();
-    console.log('consumer connected✅🌐');
-    
+    console.log('consumer connected✅');
+
     await this.consumer.subscribe({ topic: 'course-service', fromBeginning: true });
     await this.consumer.run({
       eachMessage: async (payload: EachMessagePayload) => {
-        console.log(payload,'payload,,,');
-        
+        console.log(payload, 'payload,,,');
+
         const message = payload.message.value.toString();
         const data = JSON.parse(message);
         console.log('Received message:', data);
 
-        const enrollment = new this.enrollmentModel(data);
-        await enrollment.save();
+        const existingEnrollment = await this.enrollmentModel.findOne(data);
+        if (!existingEnrollment) {
+          const enrollment = new this.enrollmentModel(data);
+          await enrollment.save();
+          console.log('Enrollment saved successfully!');
+        } else {
+          console.log('Enrollment already exists, skipping save.');
+        }
       },
     });
-    console.log('Consumer running 🚀');
+    console.log('Consumer running ');
   }
 }

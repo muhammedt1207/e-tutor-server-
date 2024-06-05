@@ -101,6 +101,8 @@ export class CourseController {
         });
       }
     } catch (error) {
+      console.log(error);
+      
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         success: false,
         message: 'Failed to retrieve course',

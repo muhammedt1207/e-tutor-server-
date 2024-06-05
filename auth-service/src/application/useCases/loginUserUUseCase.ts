@@ -1,3 +1,4 @@
+import { ErrorResponse } from "@/_lib/http/common/error"
 import { IDependencies } from "../interfaces/IDependencies"
 import { comparePassword } from "@/_lib/http/bcript/comparePassword"
 
@@ -14,8 +15,9 @@ export const loginUserUseCase =(dependancies:IDependencies)=>{
 
                 const match = await comparePassword(password,result.password!);
                 if(!match){
-                    throw new Error("Email or password is incorrected");
-                }
+                    // const error = ErrorResponse.conflict('User already exist, try another email');
+                    // return   
+                 }
 
                 return result
             } catch (error:any) {
