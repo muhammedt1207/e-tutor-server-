@@ -8,10 +8,11 @@ import { KafkaModule } from './kafka/kafka.module';
 import { EnrollmentService } from './enrollment/enrollment.service';
 import { EnrollmentModule } from './enrollment/enrollment.module';
 import { ReviewAndRatingModule } from './review-and-rating/review-and-rating.module';
+import { ExamModule } from './exam/exam.module';
 import 'dotenv/config'
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.DB_URL),   CategoryModule, CourseModule, KafkaModule, EnrollmentModule, ReviewAndRatingModule,],
+  imports: [MongooseModule.forRoot(process.env.DB_URL),   CategoryModule, CourseModule, KafkaModule, EnrollmentModule, ReviewAndRatingModule, ExamModule,],
   controllers: [],
   providers: [ConsumerService, EnrollmentService],
 })

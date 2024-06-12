@@ -9,6 +9,8 @@ export class CourseController {
   @Post()
   async create(@Body() createCourseDto: any, @Res() res): Promise<void> {
     try {
+      console.log(createCourseDto.addCurriculumData,'------------------------------------------------');
+      
       const course = await this.courseService.addCourse(createCourseDto);
       console.log(course,'course created result');
       
@@ -18,6 +20,8 @@ export class CourseController {
         message: 'Course created successfully',
       });
     } catch (error) {
+      console.log(error);
+      
       res.status(HttpStatus.INTERNAL_SERVER_ERROR).json({
         success: false,
         message: 'Failed to create course',
@@ -86,6 +90,8 @@ export class CourseController {
   @Get(':id')
   async findOne(@Param('id') id: string, @Res() res): Promise<void> {
     try {
+      console.log(id,'course id');
+      
       const course = await this.courseService.findOne(id);
       if (!course) {
         res.status(HttpStatus.NOT_FOUND).json({
@@ -113,7 +119,7 @@ export class CourseController {
   @Put('/updateStatus')
   async updateStatus(@Body() createCourseDto: any, @Res() res): Promise<void> {
     try {
-        console.log(createCourseDto,'updateStatus data');
+        console.log(createCourseDto.addCurriculumData,'updateStatus data');
         
       const course = await this.courseService.updateStatus(createCourseDto);
       console.log(course,'course created result');

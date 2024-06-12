@@ -70,13 +70,15 @@ export class UsersService {
         profileDescription: instructorData.profileDescription,
         linkedinLink: instructorData.linkedinLink,
         githubLink: instructorData.githubLink,
-        address:instructorData.Address,
+        address:instructorData.address,
         idFileUrl:instructorData.idFileUrl,
         qualificationFileUrl:instructorData.qualificationFileUrl
       });
       console.log('instrcutor application aving....', newInstructor);
-
-      return await newInstructor.save();
+      await newInstructor.save();
+      console.log('instructor data saved');
+      
+      return newInstructor 
 
     } catch (error) {
       throw new HttpException('Failed to add instructor', HttpStatus.INTERNAL_SERVER_ERROR);

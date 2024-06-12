@@ -13,7 +13,7 @@ export const router = (dependencies: IDependencies) => {
         .get(jwtMiddleware, getUser)
 
     router.route('/getAllUser')
-        .get()
+        .get(getAllUserData)
 
     router.route("/signup")
         .post(signup);

@@ -44,7 +44,7 @@ export class InstructorApplication {
     @Prop()
     linkedinLink: string;
 
-    @Prop({ type: AddressSchema, required: true })
+    @Prop({ type: AddressSchema })
     address: Address;
 
     @Prop()

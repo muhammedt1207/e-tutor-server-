@@ -7,15 +7,17 @@ export class SubLesson extends Document {
   title: string;
 
   @Prop({ required: true })
-  video: string;
+  videoUrl: string;
+
+
 }
 
 @Schema()
 export class Lesson extends Document {
   @Prop({ required: true })
-  title: string;
+  name: string;
 
-  @Prop({ type: [MongooseSchema.Types.Mixed], default: [] })
+  @Prop({ type: [SubLesson], required: true })
   subLessons: SubLesson[];
 }
 
@@ -51,8 +53,8 @@ export class Course extends Document {
   @Prop({ default: 'pending' })
   status: string;
 
-  @Prop({ type: [MongooseSchema.Types.Mixed], default: [] })
-  lessons?: Lesson[];
+  @Prop({ type: [Lesson], required: true })
+  lessons: Lesson[];
 
   @Prop()
   instructorRef: string;
