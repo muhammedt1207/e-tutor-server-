@@ -52,43 +52,51 @@ export class ExamService {
 
   async submitExam(userId: string, courseId: string, result: any): Promise<ExamResult> {
     try {
-      // Find the exam by courseId
-      const exam = await this.ExamSchema.findOne({ courseId });
-  
-      if (!exam) {
-        throw new Error("Can't find Exam");
-      }
-  
-      // Calculate the result
-      const correctAnswers = [];
-      const submittedAnswers = [];
-  
-      exam.exams.forEach((question, index) => {
-        correctAnswers.push(question.correctOption);
-        submittedAnswers.push(result[index].selectedOption); 
-      });
-  
-      let score = 0;
-      correctAnswers.forEach((answer, index) => {
-        if (answer === submittedAnswers[index]) {
-          score++;
+        // Find the exam by courseId
+        const exam = await this.ExamSchema.findOne({ courseId });
+
+        if (!exam) {
+            throw new Error("Can't find Exam");
         }
-      });
-  
-      const percentage = (score / exam.exams.length) * 100;
-  
-      // Create a new ExamResult document
-      const examResult = new this.ExamResultSchema({
-        courseId,
-        userId, // Pass the userId as a string
-        result: submittedAnswers,
-        percentage,
-      });
-  
-      // Save the examResult
-      return await examResult.save();
+
+        // Calculate the result
+        const correctAnswers = [];
+        const submittedAnswers = [];
+
+        exam.exams.forEach((question, index) => {
+            correctAnswers.push(question.correctOption);
+            submittedAnswers.push(result[index].selectedOption);
+        });
+
+        let score = 0;
+        correctAnswers.forEach((answer, index) => {
+            if (answer === submittedAnswers[index]) {
+                score++;
+            }
+        });
+
+        const percentage = (score / exam.exams.length) * 100;
+
+        let examResult = await this.ExamResultSchema.findOne({ userId, courseId });
+
+        if (examResult) {
+            examResult.result = submittedAnswers;
+            examResult.percentage = percentage;
+            examResult = await examResult.save();
+        } else {
+            examResult = new this.ExamResultSchema({
+                courseId,
+                userId,
+                result: submittedAnswers,
+                percentage,
+            });
+            examResult = await examResult.save();
+        }
+
+        return examResult;
     } catch (error) {
-      throw new Error(error.message);
+        throw new Error(error.message);
     }
-  }
+}
+
 }

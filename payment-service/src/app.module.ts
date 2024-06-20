@@ -6,6 +6,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { ConsumerService } from './kafka/consumer/consumer/consumer.service';
 import { ProducerService } from './kafka/producer/producer/producer.service';
 import { KafkaModule } from './kafka/consumer/consumer/kafka.module';
+import { SubscrptionModule } from './subscrption/subscrption.module';
 import configuration from './config/config';
 
 @Module({
@@ -23,6 +24,7 @@ import configuration from './config/config';
       inject: [ConfigService],
     }),
     KafkaModule,
+    SubscrptionModule,
   ],
   controllers: [],
   providers: [ConsumerService, ProducerService],

@@ -51,7 +51,7 @@ export class ExamController {
             console.log('User ID:', userId);
 
             // Call the service method to handle the exam submission
-            const submissionResult = await this.examService.submitExam(results, courseId, userId);
+            const submissionResult = await this.examService.submitExam(userId,courseId,results);
 
             res.status(HttpStatus.OK).json({
                 success: true,

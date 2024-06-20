@@ -5,10 +5,13 @@ import { Model } from 'mongoose';
 import { Course } from 'src/schema/course.model';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema, Types } from 'mongoose'; // Add Types import
+import { ProducerService } from 'src/kafka/producer/producer.service';
 
 @Injectable()
 export class CourseService {
-    constructor(@InjectModel(Course.name) private courseModel: Model<Course>) { }
+    constructor(@InjectModel(Course.name) private courseModel: Model<Course>,
+    private ProducerService:ProducerService
+  ) { }
     
     async addCourse(CourseData: any): Promise<Course | null> {
       try {
@@ -31,12 +34,13 @@ export class CourseService {
                   }))
               })),
               instructure: CourseData.email,
-              amount: CourseData.addCourseData.amount || ''
+              amount: CourseData.addCourseData.amount || '',
+              fixedAmount:CourseData.addCourseData.amount
           }
   
           const createdCourse = new this.courseModel(CourseDatas);
           console.log(createdCourse, 'created course data maked');
-          
+          await this.ProducerService.sendMessage('chat-service', 'createGroupChat',{type:'group',groupName:CourseDatas.title,groupDescription:CourseDatas.title,Participants:[]})
           return createdCourse.save();
       } catch (error) {
           console.log(error, 'error in course adding');
@@ -129,7 +133,8 @@ async findOne(id: string): Promise<Course> {
             description: CourseData.advanceInformationData.description,
             teachings: CourseData.advanceInformationData.teachings,
             lessons: updatedLessons,
-            amount: CourseData.addCourseData.amount || ''
+            amount: CourseData.addCourseData.amount || '',
+            fixedAmount:CourseData.addCourseData.amount
         };
 
         console.log(CourseDatas, 'Course data before saving...');
@@ -150,6 +155,8 @@ async findOne(id: string): Promise<Course> {
         existingCourse.teachings = CourseDatas.teachings;
         existingCourse.lessons = CourseDatas.lessons;
         existingCourse.amount = CourseDatas.amount;
+        existingCourse.fixedAmount=CourseDatas.amount
+
 
         return await existingCourse.save();
     } catch (error) {

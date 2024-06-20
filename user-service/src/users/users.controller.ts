@@ -44,9 +44,16 @@ export class UsersController {
     }
 
     @Get('/instructor/:id')
-    async getInstructorById(@Param('id') id: string) {
+    async getInstructorById(@Param('id') id: string,@Res() res) {
         try {
-            return await this.usersService.getInstructorById(id);
+            const instructor= await this.usersService.getInstructorById(id);
+            console.log(instructor);
+            
+            res.status(HttpStatus.OK).json({
+                success:true,
+                data:instructor,
+                message:'instructor data'
+            })
         } catch (error) {
             throw new HttpException('Failed to fetch instructor application', HttpStatus.INTERNAL_SERVER_ERROR);
         }

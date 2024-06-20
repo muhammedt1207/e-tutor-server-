@@ -9,11 +9,14 @@ import { EnrollmentService } from './enrollment/enrollment.service';
 import { EnrollmentModule } from './enrollment/enrollment.module';
 import { ReviewAndRatingModule } from './review-and-rating/review-and-rating.module';
 import { ExamModule } from './exam/exam.module';
+import { OfferModule } from './offer/offer.module';
+import { ScheduleModule } from '@nestjs/schedule';
 import 'dotenv/config'
+import { OfferCron } from './offer/offer.cron';
 
 @Module({
-  imports: [MongooseModule.forRoot(process.env.DB_URL),   CategoryModule, CourseModule, KafkaModule, EnrollmentModule, ReviewAndRatingModule, ExamModule,],
+  imports: [MongooseModule.forRoot(process.env.DB_URL),ScheduleModule.forRoot(),   CategoryModule, CourseModule, KafkaModule, EnrollmentModule, ReviewAndRatingModule, ExamModule, OfferModule,],
   controllers: [],
-  providers: [ConsumerService, EnrollmentService],
+  providers: [ConsumerService, EnrollmentService,OfferCron],
 })
 export class AppModule {}

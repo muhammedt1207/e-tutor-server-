@@ -13,7 +13,7 @@ export class StripeService {
   constructor(
     @InjectModel(Payment.name) private paymentRepository: Model<Payment>,
     private configService: ConfigService,
-    private ProducerService:ProducerService
+    private ProducerService: ProducerService
   ) {
     this.stripe = new Stripe(this.configService.get<string>('stripeKey'), {
       apiVersion: '2024-04-10',
@@ -58,29 +58,30 @@ export class StripeService {
     const existingPayment = await this.paymentRepository.findOne({
       where: { courseId, userId, status: "completed" }
     });
-  
+
     return !!existingPayment;
   }
   async savePayment(paymentData: any): Promise<Payment> {
     try {
-        console.log(paymentData,'payment data');
-        const data={
-            userId:paymentData.userId,
-            courseId:paymentData.courseId,
-            sessionId:paymentData?.sessionId,
-            status:"completed",
-            amount:paymentData.amount/100
-        }
-        console.log(data,'------------------');
-        
-        const payment = await this.paymentRepository.create(data);
-        console.log(payment,'created success fully');
-        await this.ProducerService.sendMessage('course-service','createEnrollment',{userId:data.userId,courseId:data.courseId})
+      console.log(paymentData, 'payment data');
+      const data = {
+        userId: paymentData.userId,
+        courseId: paymentData.courseId,
+        instructorRef: paymentData.instructorRef,
+        sessionId: paymentData?.sessionId,
+        status: "completed",
+        amount: paymentData.amount / 100
+      }
+      console.log(data, '------------------');
 
-        return await payment.save();
+      const payment = await this.paymentRepository.create(data);
+      console.log(payment, 'created success fully');
+      await this.ProducerService.sendMessage('course-service', 'createEnrollment', { userId: data.userId, courseId: data.courseId })
+
+      return await payment.save();
     } catch (error) {
-        throw new Error("can't save payment"+error);
-        
+      throw new Error("can't save payment" + error);
+
     }
   }
 }

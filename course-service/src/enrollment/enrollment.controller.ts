@@ -87,7 +87,7 @@ export class EnrollmentController {
     async getEnrollmentsForInstructor(
       @Param('instructorRef') instructorRef: string,
     ) {
-      console.log(instructorRef);
+      console.log(instructorRef,'instructer refrence ');
       
       try {
         const enrollments = await this.enrollmentService.getEnrollmentsForInstructorOverTime(
@@ -102,6 +102,8 @@ export class EnrollmentController {
           message: 'Enrollments retrieved successfully',
         };
       } catch (error) {
+        console.log(error);
+      
         return {
           success: false,
           message: 'Failed to retrieve enrollments',

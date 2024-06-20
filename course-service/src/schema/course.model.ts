@@ -8,9 +8,9 @@ export class SubLesson extends Document {
 
   @Prop({ required: true })
   videoUrl: string;
-
-
 }
+
+export const SubLessonSchema = SchemaFactory.createForClass(SubLesson);
 
 @Schema()
 export class Lesson extends Document {
@@ -20,6 +20,21 @@ export class Lesson extends Document {
   @Prop({ type: [SubLesson], required: true })
   subLessons: SubLesson[];
 }
+
+export const LessonSchema = SchemaFactory.createForClass(Lesson);
+
+@Schema()
+export class Offer extends Document{
+  @Prop()
+  offer:number
+
+  @Prop()
+  startDate:Date
+
+  @Prop()
+  endDate:Date
+}
+export const Offerschema =SchemaFactory.createForClass(Offer)
 
 @Schema({ timestamps: true })
 export class Course extends Document {
@@ -33,7 +48,10 @@ export class Course extends Document {
   category?: MongooseSchema.Types.ObjectId;
 
   @Prop()
-  amount:number
+  amount: number;
+
+  @Prop()
+  fixedAmount:number
 
   @Prop()
   topic?: string;
@@ -64,8 +82,12 @@ export class Course extends Document {
 
   @Prop({ required: true, default: false })
   isPublished: boolean;
+
+  @Prop({ default: false })
+  isOfferOngoing: boolean;
+
+  @Prop({type:Offerschema})
+  offerDetails?: Offer
 }
 
-export const SubLessonSchema = SchemaFactory.createForClass(SubLesson);
-export const LessonSchema = SchemaFactory.createForClass(Lesson);
 export const CourseSchema = SchemaFactory.createForClass(Course);

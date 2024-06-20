@@ -11,6 +11,9 @@ export class Payment extends Document {
   courseId: string;
 
   @Prop()
+  instructorRef:string
+
+  @Prop()
   sessionId: string;
 
   @Prop({enum:['pending','completed','failed']})
