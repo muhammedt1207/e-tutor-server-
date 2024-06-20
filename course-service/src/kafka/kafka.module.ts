@@ -10,6 +10,6 @@ import { ProducerService } from './producer/producer.service';
     EnrollmentModule, 
   ],
   providers: [ConsumerService, ProducerService],
-  exports: [ConsumerService],
+  exports: [ConsumerService,ProducerService],
 })
 export class KafkaModule {}

@@ -40,8 +40,9 @@ export class CourseService {
   
           const createdCourse = new this.courseModel(CourseDatas);
           console.log(createdCourse, 'created course data maked');
-          await this.ProducerService.sendMessage('chat-service', 'createGroupChat',{type:'group',groupName:CourseDatas.title,groupDescription:CourseDatas.title,Participants:[]})
-          return createdCourse.save();
+          const newCourse=await createdCourse.save()
+          const a=await this.ProducerService.sendMessage('chat-service', 'createGroupChat',{type:'group',groupId:newCourse._id,groupName:CourseDatas.title,groupDescription:CourseDatas.title,Participants:[CourseDatas.instructorRef]})
+          return newCourse
       } catch (error) {
           console.log(error, 'error in course adding');
           return null;

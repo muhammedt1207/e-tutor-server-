@@ -77,7 +77,7 @@ export class StripeService {
       const payment = await this.paymentRepository.create(data);
       console.log(payment, 'created success fully');
       await this.ProducerService.sendMessage('course-service', 'createEnrollment', { userId: data.userId, courseId: data.courseId })
-
+      await this.ProducerService.sendMessage('chat-service', 'addToGroup', { userId: data.userId, courseId: data.courseId })
       return await payment.save();
     } catch (error) {
       throw new Error("can't save payment" + error);

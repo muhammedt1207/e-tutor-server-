@@ -14,7 +14,6 @@ const messageSchema = new Schema({
     receiver: {
         type: Schema.Types.ObjectId,
         ref: 'users',
-        required: false 
     },
     content: {
         type: String,

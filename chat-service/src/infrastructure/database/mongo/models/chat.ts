@@ -21,6 +21,9 @@ const chatSchema = new Schema({
     groupName: {
         type: String
     },
+    groupId:{
+        type:String
+    },
     groupDescription: {
         type: String
     },

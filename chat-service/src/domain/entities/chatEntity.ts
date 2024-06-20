@@ -8,6 +8,7 @@ export interface ChatEntity {
     status: 'requested' | "active" | 'block';
     groupName?: string | null;
     groupDescription?: string | null;
+    groupId?:string|null;
     messages?: Types.ObjectId[] | string[];
     createdAt?: Date | string;
     updatedAt?: Date | string;

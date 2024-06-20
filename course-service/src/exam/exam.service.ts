@@ -13,27 +13,36 @@ export class ExamService {
 
   async addExam(examData: any): Promise<Exam> {
     try {
-      const formattedQuestions = examData.questions.map((q: any) => ({
-        question: q.question,
-        correctOption: q.correctOption,
-        options: {
-          option1: q.option1,
-          option2: q.option2,
-          option3: q.option3,
-          option4: q.option4,
-        },
-      }));
+        const formattedQuestions = examData.questions.map((q: any) => ({
+            question: q.question,
+            correctOption: q.correctOption,
+            options: {
+                option1: q.option1,
+                option2: q.option2,
+                option3: q.option3,
+                option4: q.option4,
+            },
+        }));
 
-      const exam = new this.ExamSchema({
-        courseId: examData.courseId,
-        exams: formattedQuestions,
-      });
-
-      return await exam.save();
+        let exam = await this.ExamSchema.findOne({ courseId: examData.courseId });
+        console.log(exam,'ddddddd');
+        
+        if (exam) {
+            exam.exams = formattedQuestions;
+        } else {
+            exam = new this.ExamSchema({
+                courseId: examData.courseId,
+                exams: formattedQuestions,
+            });
+        }
+        console.log(exam,'new exam dataaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa');
+        
+        return await exam.save();
     } catch (error) {
-      throw new Error(error.message);
+        throw new Error(error.message);
     }
-  }
+}
+
 
   async getExamWithCourseId(id: string) {
     try {
