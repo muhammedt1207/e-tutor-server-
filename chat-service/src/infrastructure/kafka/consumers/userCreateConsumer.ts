@@ -4,7 +4,7 @@ export default async(
     data:any
 )=>{
     try {
-        console.log(data,'this is user role want change');
+        console.log(data,'this is user role want change......................');
         
         await createUser(data)
     } catch (error) {

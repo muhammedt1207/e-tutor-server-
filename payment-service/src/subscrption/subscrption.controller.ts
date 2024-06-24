@@ -77,7 +77,7 @@ export class SubscriptionController {
         const data={
             userId,instructorId,subscription
         }
-        await this.SubscrptionService.saveSubscription(data);
+        // await this.SubscrptionService.saveSubscription(data);
         break;
       default:
         console.log(`Unhandled event type ${event.type}`);

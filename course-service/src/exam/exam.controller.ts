@@ -13,7 +13,7 @@ export class ExamController {
             console.log(ExamData)
             const newExam=await this.examService.addExam(ExamData)
             res.status(HttpStatus.OK).json({
-                success:false,
+                success:true,
                 data:newExam,
                 message:'exam added success'
             })

@@ -1,4 +1,4 @@
-import { Controller, Post, Body, Res } from '@nestjs/common';
+import { Controller, Post, Body, Res, Get, HttpStatus } from '@nestjs/common';
 import { StripeService } from './payment.service';
 import { create } from 'domain';
 
@@ -59,5 +59,19 @@ export class PaymentController {
     } catch (error) {
         
     }
+  }
+
+  @Get('/totalAmount')
+  async totalAmount(@Res() res){
+    const result =await this.stripeService.getTotalAmount()
+    if(!result){
+      throw new Error('cant find totalAmount')
+    }
+    res.status(HttpStatus.OK).json({
+      success:true,
+      data:result,
+      message:'total sales amount'
+    })
+
   }
 }

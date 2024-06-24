@@ -84,4 +84,32 @@ export class StripeService {
 
     }
   }
+
+  async getTotalAmount(): Promise<any> {
+    const result = await this.paymentRepository.aggregate([
+      {
+        $group: {
+          _id: {
+            userId: '$userId',
+            courseId: '$courseId'
+          },
+          anyAmount: { $first: { $toDouble: '$amount' } } 
+        }
+      },
+      {
+        $group: {
+          _id: null,
+          totalAmount: { $sum: '$anyAmount' }
+        }
+      },
+      {
+        $project: {
+          _id: 0,
+          totalAmount: 1
+        }
+      }
+    ]).exec();
+
+    return result.length > 0 ? result[0].totalAmount : 0;
+  }
 }

@@ -24,13 +24,16 @@ const chatSchema = new Schema({
     groupId:{
         type:String
     },
+    lastSeen:{
+        type:Date
+    },
     groupDescription: {
         type: String
     },
     messages: [
         {
             type: Schema.Types.ObjectId,
-            ref: 'messages'
+            ref: 'Message'
         }
     ]
 }, {

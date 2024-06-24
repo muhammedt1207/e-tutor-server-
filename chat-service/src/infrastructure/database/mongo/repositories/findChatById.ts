@@ -6,8 +6,13 @@ export const findChatById = async (chatId: string): Promise<ChatEntity|null> => 
     try {
       
         const chat = await Chat.findById(chatId)
-            .populate('messages')
-            .exec();
+        .populate({
+            path: 'messages',
+            populate: {
+              path: 'sender',
+              select: 'userName profileImageUrl'
+            }
+          });
 
         if (!chat) {
             throw new Error("Chat not found");

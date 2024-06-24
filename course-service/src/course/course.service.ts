@@ -63,35 +63,53 @@ export class CourseService {
 
     }
 }
-
 async getAcceptedCourse(filters?: any) {
   try {
     const query: any = { isPublished: true, status: "accepted" };
 
     if (filters) {
-      if (filters.category) {
-        query.category = filters.category;
+      if (filters.categories && filters.categories.length > 0) {
+        query.category = { $in: filters.categories };
       }
       if (filters.instructor) {
         query.instructorRef = filters.instructor;
       }
-      Object.assign(query, filters);
+      if (filters.search) {
+        query.title = { $regex: new RegExp(filters.search, 'i') };
+      }
+      
+      // Object.assign(query, filters);
     }
+    console.log(query,'query datass');
+    
+    let sortCriteria:any = { createdAt: -1 }; 
 
+    if (filters.sortBy === 'newToOld') {
+      sortCriteria = { createdAt: 1 }; 
+    } else if (filters.sortBy === 'priceLowToHigh') {
+      sortCriteria = { amount: 1 }; 
+    } else if (filters.sortBy === 'priceHighToLow') {
+      sortCriteria = { amount: -1 };
+    }
+    console.log(sortCriteria);
+    
     const courses = await this.courseModel
       .find(query)
-      .sort({ createdAt: -1 })
+      .sort(sortCriteria)
       .populate('category');
 
     if (!courses) {
       throw new NotFoundException('course not found');
     }
+    // console.log(courses);
+    
     return courses;
   } catch (error) {
     console.log(error);
     throw new Error(error);
   }
 }
+
 
 async findOne(id: string): Promise<Course> {
     try {

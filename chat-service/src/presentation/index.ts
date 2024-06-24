@@ -5,6 +5,9 @@ import { router } from '../infrastructure/routes';
 import { dependancies } from '../_boot/dependencies';
 import morgan from 'morgan'
 import errorhandler  from '../_lib/errorHandler/errorhandler'
+import connectSocketIo from '@/infrastructure/socket';
+import http from 'http'
+import cors from 'cors'
 dotenv.config();
 
 
@@ -16,8 +19,12 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(morgan('dev'))
-
-
+const server =http.createServer(app)
+app.use(cors({
+  origin: 'http://localhost:5173',
+  credentials: true
+}));
+connectSocketIo(server)
 app.use('/',router(dependancies))
 
 
@@ -25,8 +32,8 @@ app.use("*",(req: Request, res: Response) => {
     res.status(404).json({ success: false, status: 404, message: "Api Not found" });
   });  
 app.use(errorhandler)
-app.listen(PORT,()=>{
-    console.log("Auth server Running On PORT: ",PORT)
+server.listen(PORT,()=>{
+    console.log("Chat server Running On PORT: ",PORT)
 })
 
 export default app;

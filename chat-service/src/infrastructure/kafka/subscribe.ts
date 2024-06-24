@@ -1,14 +1,15 @@
-import { userCreatedConsumer,instructorVerification,updateConsumer,createChat,createGroupChat, addToGroup } from "./consumers"
+import { userCreatedConsumer,instructorVerification,updateConsumer,createChat,createGroupChat, addToGroup, otp } from "./consumers"
 export interface ISussscriber{
    userCreate(data:any):Promise<void>;
    updateUser(data:any):Promise<void>;
    instructorAcceptence(data:any):Promise<void>;
    createChat(data:any):Promise<void>;
    createGroupChat(data:any):Promise<void>;
-   addToGroup(data:any):Promise<void>
+   addToGroup(data:any):Promise<void>;
+   otp(data:any):Promise<void>;
 }
 
-export interface IAuthSubsciber extends Pick<ISussscriber,'userCreate'|'updateUser'|'instructorAcceptence'|'createChat'|'createGroupChat'|'addToGroup'>{}
+export interface IAuthSubsciber extends Pick<ISussscriber,'otp'|'userCreate'|'updateUser'|'instructorAcceptence'|'createChat'|'createGroupChat'|'addToGroup'>{}
 export const    createSubscriber=():IAuthSubsciber=>{
     return{
         userCreate:userCreatedConsumer,
@@ -17,5 +18,6 @@ export const    createSubscriber=():IAuthSubsciber=>{
         createChat:createChat,
         createGroupChat:createGroupChat,
         addToGroup:addToGroup,
+        otp:otp,
     }
 }

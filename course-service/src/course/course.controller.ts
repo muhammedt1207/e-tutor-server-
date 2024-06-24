@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, HttpCode, HttpStatus, Res, NotFoundException } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Put, Delete, HttpCode, HttpStatus, Res, NotFoundException, Query } from '@nestjs/common';
 import { CourseService } from './course.service';
 import { NotFoundError } from 'rxjs';
 
@@ -28,22 +28,30 @@ export class CourseController {
       });
     }
   }
+
   @Get('/acceptedCourses')
-  async findAcceptedCourse(@Res() res){
-    try {
-        const result=await this.courseService.getAcceptedCourse()
-        if(!result){
-            throw new NotFoundError('course not found')
-        }
-        res.status(200).json({
-            success:true,
-            data:result,
-            message:'all publiched courses'
-        })
-    } catch (error) {
-        throw new Error(error)
+async findAcceptedCourse(@Res() res, @Query() filters) {
+  try {
+    console.log(filters,'filterss....');
+    
+    const result = await this.courseService.getAcceptedCourse(filters);
+    if (!result) {
+      throw new NotFoundException('course not found');
     }
+    res.status(200).json({
+      success: true,
+      data: result,
+      message: 'All published courses'
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      success: false,
+      message: 'An error occurred while fetching courses'
+    });
   }
+}
+
   @Get()
   async findAll(@Res() res): Promise<void> {
     try {

@@ -7,7 +7,7 @@ export const createMessageUseCase =(dependencies:IDependencies)=>{
     }=dependencies
 
     return {
-        execute:async(messageData: MessageEntity, chatData: ChatEntity)=>{
+        execute:async(messageData: MessageEntity, chatData: string)=>{
             return await createMessage(messageData,chatData)
         }
     }

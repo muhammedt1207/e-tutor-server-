@@ -91,7 +91,7 @@ export class SubscriptionService {
     if (!existingSubscription || (existingSubscription && existingSubscription.currentPeriodEnd < Date.now())) {
       const subscriptionData = {
         userId: subscriptionDatas.customerId,
-        instructorId: subscriptionDatas.instructorId.teacherId,
+        instructorId: subscriptionDatas.instructorId,
         status: 'Success',
         currentPeriodEnd: endingDate,
         amount: 129,

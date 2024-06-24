@@ -33,6 +33,8 @@ export const runConsumer = async () => {
 
                 try {
                     if (subscriberMethod in subscribe) {
+                        console.log(subscriberMethod,'subsribe method.......');
+                        
                         await subscribe[subscriberMethod](subscriberData);
                     } else {
                         throw new Error(`Method ${subscriberMethod} not found in subscriber`);
