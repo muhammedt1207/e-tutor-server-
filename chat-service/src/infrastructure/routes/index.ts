@@ -7,7 +7,7 @@ import { createMessage } from "../database/mongo/repositories";
 
 export const router = (depentencies: IDependencies) => {
     const {
-        createChat, createMessage, getChatByUserId,getChat
+        createChat, createMessage, getChatByUserId,getChat,findNotification
     } = controllers(depentencies)
 
     const router = Router()
@@ -23,5 +23,7 @@ export const router = (depentencies: IDependencies) => {
     router.route('/chats/:id')
         .get(getChatByUserId)
 
+    router.route('/notification/:id')
+        .get(findNotification)
     return router
 }

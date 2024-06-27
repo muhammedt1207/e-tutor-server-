@@ -96,7 +96,7 @@ export class SubscriptionService {
         currentPeriodEnd: endingDate,
         amount: 129,
       };
-  
+      
       const newSubscription = new this.subscriptionRepository(subscriptionData);
       await this.ProducerService.sendMessage('chat-service', 'createChat',{type:'individual',participants:[subscriptionData.userId,subscriptionData.instructorId]})
 

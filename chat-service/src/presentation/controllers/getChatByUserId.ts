@@ -17,7 +17,6 @@ export const getChatByUserId=(dependencies:IDependencies)=>{
          if(!result){
             throw new Error("Can't find any chat by this user")
          }   
-         console.log(result,'find result');
          
          res.status(201).json({
             success:true,

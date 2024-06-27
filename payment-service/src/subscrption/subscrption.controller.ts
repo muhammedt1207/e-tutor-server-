@@ -90,7 +90,7 @@ export class SubscriptionController {
   async saveSubscriptions(@Body() subscriptionData: any ,@Res() res) {
     try {
         
-        console.log(subscriptionData);
+        console.log(subscriptionData,'subscription is saving ................');
         
     const savedData=await this.SubscrptionService.saveSubscription(subscriptionData);
     res.status(HttpStatus.OK).json({

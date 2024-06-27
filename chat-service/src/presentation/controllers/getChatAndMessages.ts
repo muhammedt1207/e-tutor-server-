@@ -10,7 +10,6 @@ export const getChatAndMessages=(dependancies:IDependencies)=>{
         try {
             const chatId=req.params.id
             const result =await findchatByIdUseCase(dependancies).execute(chatId)
-            console.log(result);
             res.status(201).json({
                 success:true,
                 data:result,

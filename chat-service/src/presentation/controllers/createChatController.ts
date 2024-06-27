@@ -11,7 +11,6 @@ export const createChatController = (dependencies: IDependencies) => {
         try {
             const data = req.body;
 
-            // Convert participant IDs to ObjectId
             if (data.participants && Array.isArray(data.participants)) {
                 data.participants = data.participants.map((id: string) => {
                     try {

@@ -1,11 +1,11 @@
 import { Socket } from 'socket.io';
 import { Server } from 'http';
+import { setLastSeen } from '../database/mongo/repositories/setLastSeen';
+import { saveNotification } from '../database/mongo/repositories/createNotification';
 const socket = require('socket.io');
-import cors from 'cors';
-import { isPartOfTypeNode } from 'typescript';
 
-const connectSocketIo = (Server: Server) => {
-  const io = socket(Server, {
+const connectSocketIo = (server: Server) => {
+  const io = socket(server, {
     cors: {
       origin: ['http://localhost:5173'],
       method: ['GET', 'POST'],
@@ -14,10 +14,10 @@ const connectSocketIo = (Server: Server) => {
   });
 
   const userSocketMap: { [key: string]: string } = {};
-  const userLastSeen: { [key: string]: number } = {}; // Store last seen timestamp
+  const userLastSeen: { [key: string]: number } = {}; 
 
-  const getRecieverSocketId = (recieverId: string): string | undefined => {
-    return userSocketMap[recieverId];
+  const getReceiverSocketId = (receiverId: string): string | undefined => {
+    return userSocketMap[receiverId];
   };
 
   io.on('connection', (socket: Socket) => {
@@ -26,16 +26,94 @@ const connectSocketIo = (Server: Server) => {
     if (userId) {
       userSocketMap[userId] = socket.id;
       userLastSeen[userId] = Date.now(); 
+      setLastSeen(userId, Date.now());
     }
 
     io.emit('getOnlineUsers', Object.keys(userSocketMap));
 
-    socket.on('newMessage', (newMessage) => {
-      const recieverSocketId = getRecieverSocketId(newMessage.obj.reciever);
-      if (recieverSocketId) {
-        io.to(recieverSocketId).emit('newMessage', newMessage);
+    socket.on('newMessage', (newMessage: any) => {
+      const receiverSocketId = getReceiverSocketId(newMessage.obj.reciever);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit('newMessage', newMessage);
+        userLastSeen[newMessage.obj.sender] = Date.now(); 
+        setLastSeen(newMessage.obj.sender, Date.now());
       } else {
-        console.log('reciever is offline');
+        console.log('Receiver is offline');
+      }
+    });
+
+    socket.on('typing', ({receiverId, sender}) => {
+      const receiverSocketId = getReceiverSocketId(receiverId);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit('typing', { sender });
+      }
+    });
+    
+    socket.on('stopTyping', ({ receiverId, sender }) => {
+      const receiverSocketId = getReceiverSocketId(receiverId);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit('stopTyping', { sender });
+      }
+    });
+
+    socket.on('offer', (data) => {
+      
+      const receiverSocketId = getReceiverSocketId(data.receiverId);
+      console.log('Offer received on server:', JSON.stringify(data));
+      
+      if (receiverSocketId) {
+        console.log('Emitting incomingCall to:', receiverSocketId);
+        io.to(receiverSocketId).emit('incomingCall', { 
+          from: data.senderId, 
+          senderId: data.senderId
+        });
+        console.log('Emitting offer to:', receiverSocketId);
+        io.to(receiverSocketId).emit('offer', data);
+      } else {
+        console.log('Receiver not found:', data.receiverId);
+      }
+    });
+
+    socket.on('answer', (data) => {
+      console.log('Answer received on server:', JSON.stringify(data.receiverId));
+      const receiverSocketId = getReceiverSocketId(data.receiverId);
+      if (receiverSocketId) {
+        console.log('Emitting answer to:', receiverSocketId);
+        io.to(receiverSocketId).emit('answer', data);
+      } else {
+        console.log('Receiver not found:', data.receiverId);
+      }
+    });
+
+    socket.on('ice-candidate', (data) => {
+      console.log('ICE candidate received:', JSON.stringify(data));
+      const receiverSocketId = getReceiverSocketId(data.receiverId);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit('ice-candidate', data);
+      }
+    });
+
+    socket.on('callAccepted', (data) => {
+      console.log('Call accepted:', JSON.stringify(data));
+      const receiverSocketId = getReceiverSocketId(data.receiverId);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit('callAccepted', data);
+      }
+    });
+
+    socket.on('callDeclined', (data) => {
+      console.log('Call declined:', JSON.stringify(data));
+      const receiverSocketId = getReceiverSocketId(data.receiverId);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit('callDeclined', data);
+      }
+    });
+
+    socket.on('endCall', (data) => {
+      console.log('Call ended:', JSON.stringify(data));
+      const receiverSocketId = getReceiverSocketId(data.receiverId);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit('callEnded');
       }
     });
 
@@ -45,22 +123,10 @@ const connectSocketIo = (Server: Server) => {
         if (userSocketMap[key] === socket.id) {
           delete userSocketMap[key];
           userLastSeen[key] = Date.now(); 
+          setLastSeen(key, Date.now());
         }
       });
       io.emit('getOnlineUsers', Object.keys(userSocketMap));
-    });
-
-    socket.on('readMessage', (messageId, chatId) => {
-    });
-
-    socket.on('typing', ({ roomId, sender }) => {
-        console.log('Typing event received on server', roomId, sender);
-        io.to(roomId).emit('typing', { sender, roomId });
-      });
-
-    socket.on('stopTyping', ({ roomId, sender }) => {
-        console.log('typing is stopped');
-      io.to(roomId).emit('stopTyping', { sender });
     });
   });
 };

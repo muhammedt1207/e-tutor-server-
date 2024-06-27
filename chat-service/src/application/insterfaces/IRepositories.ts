@@ -6,4 +6,5 @@ export interface IRepositories{
     findGroupByUserId:(userId:string)=>Promise<ChatEntity[]|null>
     findChatById:(chatId:string)=>Promise<ChatEntity|null>
     findChatByUserId:(userId:string)=>Promise<ChatEntity[]|null>
+    findNotification:(userId:string)=>Promise<any>
 }
