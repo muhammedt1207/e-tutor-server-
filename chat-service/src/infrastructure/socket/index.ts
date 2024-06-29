@@ -1,20 +1,20 @@
 import { Socket } from 'socket.io';
 import { Server } from 'http';
 import { setLastSeen } from '../database/mongo/repositories/setLastSeen';
-import { saveNotification } from '../database/mongo/repositories/createNotification';
-const socket = require('socket.io');
+import { messageSeen } from '../database/mongo/repositories/messageSeen';
+
+const socketIo = require('socket.io');
 
 const connectSocketIo = (server: Server) => {
-  const io = socket(server, {
+  const io = socketIo(server, {
     cors: {
       origin: ['http://localhost:5173'],
-      method: ['GET', 'POST'],
+      methods: ['GET', 'POST'],
       credentials: true,
     },
   });
 
   const userSocketMap: { [key: string]: string } = {};
-  const userLastSeen: { [key: string]: number } = {}; 
 
   const getReceiverSocketId = (receiverId: string): string | undefined => {
     return userSocketMap[receiverId];
@@ -25,95 +25,99 @@ const connectSocketIo = (server: Server) => {
     const userId: string = socket.handshake.query.userId as string;
     if (userId) {
       userSocketMap[userId] = socket.id;
-      userLastSeen[userId] = Date.now(); 
       setLastSeen(userId, Date.now());
     }
 
     io.emit('getOnlineUsers', Object.keys(userSocketMap));
 
     socket.on('newMessage', (newMessage: any) => {
+      console.log('New Message:', newMessage);
       const receiverSocketId = getReceiverSocketId(newMessage.obj.reciever);
       if (receiverSocketId) {
         io.to(receiverSocketId).emit('newMessage', newMessage);
-        userLastSeen[newMessage.obj.sender] = Date.now(); 
         setLastSeen(newMessage.obj.sender, Date.now());
       } else {
         console.log('Receiver is offline');
       }
     });
 
-    socket.on('typing', ({receiverId, sender}) => {
+    socket.on('messageSeen', async ({ messageId, chatId, recieverId }) => {
+      console.log(`Message seen: ${messageId}, ${chatId}, ${recieverId}`);
+      await messageSeen(messageId);
+      const receiverSocketId = getReceiverSocketId(recieverId);
+      if (receiverSocketId) {
+        io.to(receiverSocketId).emit('messageSeen', { messageId, chatId });
+      }
+    });
+
+    socket.on('typing', ({ receiverId, sender }) => {
+      console.log(`Typing from ${sender} to ${receiverId}`);
       const receiverSocketId = getReceiverSocketId(receiverId);
       if (receiverSocketId) {
         io.to(receiverSocketId).emit('typing', { sender });
       }
     });
-    
+
     socket.on('stopTyping', ({ receiverId, sender }) => {
+      console.log(`Stop typing from ${sender} to ${receiverId}`);
       const receiverSocketId = getReceiverSocketId(receiverId);
       if (receiverSocketId) {
         io.to(receiverSocketId).emit('stopTyping', { sender });
-      }
-    });
-
-    socket.on('offer', (data) => {
-      
-      const receiverSocketId = getReceiverSocketId(data.receiverId);
-      console.log('Offer received on server:', JSON.stringify(data));
-      
-      if (receiverSocketId) {
-        console.log('Emitting incomingCall to:', receiverSocketId);
-        io.to(receiverSocketId).emit('incomingCall', { 
-          from: data.senderId, 
-          senderId: data.senderId
-        });
-        console.log('Emitting offer to:', receiverSocketId);
-        io.to(receiverSocketId).emit('offer', data);
       } else {
-        console.log('Receiver not found:', data.receiverId);
+        console.log("Receiver not found to stop typing");
       }
     });
 
-    socket.on('answer', (data) => {
-      console.log('Answer received on server:', JSON.stringify(data.receiverId));
-      const receiverSocketId = getReceiverSocketId(data.receiverId);
-      if (receiverSocketId) {
-        console.log('Emitting answer to:', receiverSocketId);
-        io.to(receiverSocketId).emit('answer', data);
+    socket.on("videoCall", (data) => {
+      console.log("hello chat in Videochat",data)
+      const targetSocketId:any =getReceiverSocketId(data.id)
+      console.log(targetSocketId)
+      io.to(targetSocketId).emit('incomingCall', { data });
+  });
+
+    socket.on('joinCall', ({ callId }) => {
+      console.log(`Joining call with callId ${callId}`);
+      socket.join(callId);
+    });
+
+    socket.on('offer', ({ offer, callId }) => {
+      console.log(`Offer received for call ${callId}`);
+      socket.to(callId).emit('offer', { offer });
+    });
+
+    socket.on('answer', ({ answer, callId }) => {
+      console.log(`Answer received for call ${callId}`);
+      socket.to(callId).emit('answer', { answer });
+    });
+
+    socket.on('ice-candidate', ({ candidate, callId }) => {
+      console.log(`ICE candidate received for call ${callId}`);
+      socket.to(callId).emit('ice-candidate', { candidate });
+    });
+
+    socket.on('endCall', ({ callId }) => {
+      console.log(`Ending call with callId ${callId}`);
+      io.to(callId).emit('callEnded');
+      io.in(callId).socketsLeave(callId);
+    });
+
+    socket.on('acceptCall', ({ senderId, receiverId }) => {
+      console.log(`Accepting call from ${senderId} by ${receiverId}`);
+      const senderSocketId = getReceiverSocketId(senderId);
+      if (senderSocketId) {
+        io.to(senderSocketId).emit('callAccepted', { receiverId });
       } else {
-        console.log('Receiver not found:', data.receiverId);
+        console.log("Sender not found to accept call");
       }
     });
 
-    socket.on('ice-candidate', (data) => {
-      console.log('ICE candidate received:', JSON.stringify(data));
-      const receiverSocketId = getReceiverSocketId(data.receiverId);
-      if (receiverSocketId) {
-        io.to(receiverSocketId).emit('ice-candidate', data);
-      }
-    });
-
-    socket.on('callAccepted', (data) => {
-      console.log('Call accepted:', JSON.stringify(data));
-      const receiverSocketId = getReceiverSocketId(data.receiverId);
-      if (receiverSocketId) {
-        io.to(receiverSocketId).emit('callAccepted', data);
-      }
-    });
-
-    socket.on('callDeclined', (data) => {
-      console.log('Call declined:', JSON.stringify(data));
-      const receiverSocketId = getReceiverSocketId(data.receiverId);
-      if (receiverSocketId) {
-        io.to(receiverSocketId).emit('callDeclined', data);
-      }
-    });
-
-    socket.on('endCall', (data) => {
-      console.log('Call ended:', JSON.stringify(data));
-      const receiverSocketId = getReceiverSocketId(data.receiverId);
-      if (receiverSocketId) {
-        io.to(receiverSocketId).emit('callEnded');
+    socket.on('declineCall', ({ senderId, receiverId }) => {
+      console.log(`Declining call from ${senderId} by ${receiverId}`);
+      const senderSocketId = getReceiverSocketId(senderId);
+      if (senderSocketId) {
+        io.to(senderSocketId).emit('callDeclined', { receiverId });
+      } else {
+        console.log("Sender not found to decline call");
       }
     });
 
@@ -122,7 +126,6 @@ const connectSocketIo = (server: Server) => {
       Object.keys(userSocketMap).forEach((key) => {
         if (userSocketMap[key] === socket.id) {
           delete userSocketMap[key];
-          userLastSeen[key] = Date.now(); 
           setLastSeen(key, Date.now());
         }
       });

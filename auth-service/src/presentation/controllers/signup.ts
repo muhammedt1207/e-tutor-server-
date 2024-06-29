@@ -97,7 +97,11 @@ export const signupController = (dependencies: IDependencies) => {
                     if (!result) {
                         return new Error("User Creation failed");
                     }
-                    await userCreatedProducer(result)
+                    if(result){
+                        console.log('user create producer sending...',result);
+                        
+                        await userCreatedProducer(result)
+                    }
 
                     const accessToken = generateAccessToken(
                         String(result?._id),

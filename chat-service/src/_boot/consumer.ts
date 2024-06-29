@@ -17,6 +17,10 @@ export const runConsumer = async () => {
             topic: 'chat-service',
             fromBeginning: true
         });
+        await consumer.subscribe({
+            topic: 'notification-service-topic',
+            fromBeginning: true
+        });
 
         console.log('consumer connected✅✅');
 
