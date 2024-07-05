@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: etutor-payment-deployment
+  labels:
+    name:  payment-service
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: payment-service
+  template:
+    metadata:
+      labels:
+        app: payment-service
+    spec:
+      containers:
+      - image: muhammedt1207/etutor-payment:latest
+        name: payment-service
+        envFrom:
+          - configMapRef:
+              name: payment-service-config

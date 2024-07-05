@@ -7,14 +7,14 @@ export const addUserToGroup=async(data:any)=>{
             type: 'group'
         }).exec();
     
-        if (!chat) {
-            throw new Error("Can't find the group");
-        }
+        // if (!chat) {
+        //     throw new Error("Can't find the group");
+        // }
 
-        if (!chat.participants.includes(data.userId)) {
-            chat.participants.push(data.userId);
-            await chat.save();
-        }
+        // if (!chat.participants.includes(data.userId)) {
+        //     chat.participants.push(data.userId);
+        //     await chat.save();
+        // }
 
         return chat;
     } catch (error:any) {

@@ -60,7 +60,7 @@ export class SubscriptionController {
       event = this.stripe.webhooks.constructEvent(
         payload,
         sig,
-        'whsec_6779211c6c1c5be5200ada1e6671f692c4927f766d87c39be1225af6e41039d5', 
+        '******************************************', 
       );
     } catch (err) {
       console.log(`Webhook Error: ${err.message}`);

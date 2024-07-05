@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  etutor-course-service
+spec:
+  selector:
+    app: course-service
+  ports:
+  - name:  course-service
+    protocol: TCP
+    port:  8085
+    targetPort: 8085

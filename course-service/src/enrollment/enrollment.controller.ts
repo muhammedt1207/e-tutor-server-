@@ -13,6 +13,8 @@ export class EnrollmentController {
         console.log(courseId,userId,'query dataaasss');
         
       const isEnrolled = await this.enrollmentService.isUserEnrolled(courseId, userId);
+      console.log(isEnrolled,'-----------');
+      
       res.status(HttpStatus.OK).json({
         success: true,
         data: { isEnrolled },

@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name:  etutor-notification-service
+spec:
+  selector:
+    app: notification-service
+  ports:
+  - name:  notification-service
+    protocol: TCP
+    port:  8003
+    targetPort: 8003

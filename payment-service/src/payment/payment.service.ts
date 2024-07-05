@@ -77,7 +77,7 @@ export class StripeService {
       const payment = await this.paymentRepository.create(data);
       console.log(payment, 'created success fully');
       await this.ProducerService.sendMessage('course-service', 'createEnrollment', { userId: data.userId, courseId: data.courseId })
-      await this.ProducerService.sendMessage('chat-service', 'addToGroup', { userId: data.userId, courseId: data.courseId })
+      // await this.ProducerService.sendMessage('chat-service', 'addToGroup', { userId: data.userId, courseId: data.courseId })
       return await payment.save();
     } catch (error) {
       throw new Error("can't save payment" + error);
@@ -111,5 +111,31 @@ export class StripeService {
     ]).exec();
 
     return result.length > 0 ? result[0].totalAmount : 0;
+  }
+
+
+  async getTotalSalesByInstructor(): Promise<any> {
+    const totalSales = await this.paymentRepository.aggregate([
+      {
+        $group: {
+          _id: '$instructorRef',
+          totalSales: { $sum: { $toDouble: '$amount' } },
+        },
+      },
+      {
+        $project: {
+          instructorRef: '$_id',
+          totalSales: { 
+            $multiply: [
+              '$totalSales',
+              0.5,
+              0.9,
+            ]},
+          _id: 0,
+        },
+      },
+    ]);
+
+    return totalSales;
   }
 }

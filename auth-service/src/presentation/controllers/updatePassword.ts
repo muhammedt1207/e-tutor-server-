@@ -13,9 +13,8 @@ export const updatePasswordController = (dependencies: IDependencies) => {
         try {
             console.log(req.body, 'user data in change password');
             const { param, oldPassword, newPassword } = req.body;
-
             
-            let email = null;
+            let email = "";
             if (param) {
                 const decode = await verifyForgotPasswordToken(param);
                 email = decode.email;

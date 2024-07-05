@@ -56,12 +56,15 @@ async updateProgress(progressData: any): Promise<Enrollment> {
 
   async isUserEnrolled(courseId: string, userId: string){
     try {
-      const enrollment = await this.enrollmentModel.find({
+      const enrollment = await this.enrollmentModel.findOne({
         courseId:courseId,
         userId:userId})
       console.log(enrollment);
-      
-      return [!!enrollment,enrollment]; 
+      if(enrollment){
+        return [true,enrollment]
+      }else{
+        return [false,enrollment]; 
+      }
     } catch (error) {
       console.error('Error checking enrollment:', error);
       throw new InternalServerErrorException('Failed to check enrollment');

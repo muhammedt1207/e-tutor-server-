@@ -1,0 +1,55 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-controller
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: kubernetes.docker.internal
+    http:
+      paths:
+      - path: /api/auth
+        pathType: Prefix
+        backend:
+          service:
+            name: etutor-auth-service
+            port:
+              number: 8081
+      - path: /api/user
+        pathType: Prefix
+        backend:
+          service:
+            name: etutor-user-service
+            port:
+              number: 8083
+      - path: /api/notification
+        pathType: Prefix
+        backend:
+          service:
+            name: etutor-notification-service
+            port:
+              number: 8003
+      - path: /api/course
+        pathType: Prefix
+        backend:
+          service:
+            name: etutor-course-service
+            port:
+              number: 8085
+      - path: /api/payment
+        pathType: Prefix
+        backend:
+          service:
+            name: etutor-payment-service
+            port:
+              number: 8086
+      - path: /api/chat
+        pathType: Prefix
+        backend:
+          service:
+            name: etutor-chat-service
+            port:
+              number: 8087
+     

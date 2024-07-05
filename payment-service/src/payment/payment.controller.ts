@@ -72,6 +72,22 @@ export class PaymentController {
       data:result,
       message:'total sales amount'
     })
+  }
 
+  @Get('/getTotalSalesByIstrutor')
+  async getTotalSalesByInstructor(@Res() res){
+try {
+  const result=await this.stripeService.getTotalSalesByInstructor()
+  if(!result){
+    throw new Error("Can't find sales");
+  }
+  res.status(HttpStatus.OK).json({
+    success:true,
+    data:result,
+  })
+} catch (error) {
+  throw new Error(error);
+  
+}    
   }
 }
