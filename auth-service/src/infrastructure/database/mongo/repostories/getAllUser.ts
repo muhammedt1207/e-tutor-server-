@@ -1,4 +1,4 @@
-import { UserEntity } from "@/domain/entities";
+
 import { User } from "../model/UserSchema";
 
 export const getAllUser=async():Promise<any|null>=>{

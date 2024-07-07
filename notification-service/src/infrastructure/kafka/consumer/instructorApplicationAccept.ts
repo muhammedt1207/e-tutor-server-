@@ -1,4 +1,4 @@
-import { sendInstructorAcceptenceMail } from "@/infrastructure/services/mail/sendInstructorAcceptenceMail"
+import { sendInstructorAcceptenceMail } from "../../services/mail/sendInstructorAcceptenceMail";
 
 export default async(
     

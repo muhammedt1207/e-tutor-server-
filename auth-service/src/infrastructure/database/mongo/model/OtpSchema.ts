@@ -1,5 +1,5 @@
-import { IOtp } from "@/domain/entities";
-import { required } from "joi";
+import { IOtp } from "domain/entities";
+
 import { Schema, model } from "mongoose";
 
 

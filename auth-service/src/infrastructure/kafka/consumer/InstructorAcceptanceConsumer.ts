@@ -1,4 +1,4 @@
-import { changeRole } from "@/infrastructure/database/mongo/repostories/changeRole"
+import { changeRole } from "infrastructure/database/mongo/repostories/changeRole";
 
 export default async(
     id:string

@@ -1,6 +1,5 @@
 import { IDependencies } from "../insterfaces/IDependencies";
 import { ChatEntity } from "../../domain/entities";
-import { ICreateChatUseCase } from "../../domain/useCases";
 
 export const createChatUseCase = (dependencies: IDependencies)=> {
     const {

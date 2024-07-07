@@ -1,5 +1,5 @@
-import { dependancies } from "@/_boot/dependencies";
-import { IDependencies } from "@/application/interfaces/IDependencies";
+
+import { IDependencies } from "application/interfaces/IDependencies";
 import { NextFunction, Request, Response } from "express";
 import { Types } from "mongoose";
 

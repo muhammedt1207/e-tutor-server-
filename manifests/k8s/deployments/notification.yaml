@@ -15,7 +15,7 @@ spec:
         app: notification-service
     spec:
       containers:
-      - image: muhammedt1207/etutor-notification:latest
+      - image: etutor.azurecr.io/etutor-notification:latest
         name: notification-service
         envFrom:
           - configMapRef:

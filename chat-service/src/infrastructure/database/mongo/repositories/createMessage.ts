@@ -1,6 +1,5 @@
-import { Types } from "mongoose";
 import { Chat, Message } from "../models";
-import { ChatEntity, MessageEntity } from "@/domain/entities";
+import {  MessageEntity } from "../../../../domain/entities";
 
 export const createMessage = async(messageData: MessageEntity, chatData: string): Promise<MessageEntity|null> => {
         let chat;

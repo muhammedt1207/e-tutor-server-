@@ -8,6 +8,8 @@ RUN yarn install
 
 COPY . .
 
+RUN ls -al
+
 RUN yarn build
 
 EXPOSE 8081

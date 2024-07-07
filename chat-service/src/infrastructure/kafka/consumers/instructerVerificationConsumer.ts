@@ -1,4 +1,4 @@
-import { updateRole } from "@/infrastructure/database/mongo/repositories/updateUserRole";
+import { updateRole } from "../../database/mongo/repositories";
 
 export default async(
     id:string

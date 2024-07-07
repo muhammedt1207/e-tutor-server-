@@ -1,4 +1,4 @@
-import { ChatEntity, MessageEntity } from "@/domain/entities";
+import {  MessageEntity } from "../../domain/entities";
 import { IDependencies } from "../insterfaces/IDependencies";
 
 export const createMessageUseCase =(dependencies:IDependencies)=>{

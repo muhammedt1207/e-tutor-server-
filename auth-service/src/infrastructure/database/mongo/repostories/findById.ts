@@ -1,6 +1,5 @@
-import { dependancies } from "@/_boot/dependencies";
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { UserEntity } from "@/domain/entities";
+
+import { UserEntity } from "domain/entities";
 import { User } from "../model/UserSchema";
 
 

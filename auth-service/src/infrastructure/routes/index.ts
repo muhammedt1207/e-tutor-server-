@@ -1,7 +1,7 @@
-import { controllers } from "@/presentation/controllers";
+import { controllers } from "presentation/controllers";
 import { IDependencies } from "../../application/interfaces/IDependencies";
 import { Router } from 'express'
-import { jwtMiddleware } from "@/_lib/http/middleWares/jwtMiddleware";
+import { jwtMiddleware } from "_lib/http/middleWares/jwtMiddleware";
 
 export const router = (dependencies: IDependencies) => {
     const {

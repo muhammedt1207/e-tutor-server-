@@ -1,11 +1,11 @@
-import express,{Request,Response,NextFunction,Application} from 'express'
+import express,{Request,Response,Application} from 'express'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import { router } from '../infrastructure/routes';
 import { dependancies } from '../_boot/dependencies';
 import morgan from 'morgan'
 import errorhandler  from '../_lib/errorHandler/errorhandler'
-import connectSocketIo from '@/infrastructure/socket';
+import connectSocketIo from '../infrastructure/socket';
 import http from 'http'
 import cors from 'cors'
 dotenv.config();

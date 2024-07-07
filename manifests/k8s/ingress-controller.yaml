@@ -4,10 +4,14 @@ metadata:
   name: ingress-controller
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/enable-cors: "true" 
+    nginx.ingress.kubernetes.io/cors-allow-origin: "http://gizmocart.shop"
 spec:
-  ingressClassName: nginx
+  ingressClassName:  webapprouting.kubernetes.azure.com
   rules:
-  - host: kubernetes.docker.internal
+  - host: webapprouting.gizmocart.shop
+  
     http:
       paths:
       - path: /api/auth
@@ -30,7 +34,7 @@ spec:
           service:
             name: etutor-notification-service
             port:
-              number: 8003
+              number: 8082
       - path: /api/course
         pathType: Prefix
         backend:

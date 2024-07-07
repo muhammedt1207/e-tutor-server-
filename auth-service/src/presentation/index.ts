@@ -1,10 +1,10 @@
-import express,{Request,Response,NextFunction,Application} from 'express'
+import express,{Request,Response,Application} from 'express'
 import dotenv from 'dotenv'
 import cookieParser from 'cookie-parser'
 import { router } from '../infrastructure/routes';
 import { dependancies } from '../_boot/dependencies';
 import morgan from 'morgan'
-import { errorHandler } from '@/_lib/http/common/error';
+import { errorHandler } from '_lib/http/common/error';
 dotenv.config();
 
 

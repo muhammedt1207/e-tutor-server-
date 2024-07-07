@@ -1,6 +1,6 @@
-import { ErrorResponse } from "@/_lib/http/common/error"
+
 import { IDependencies } from "../interfaces/IDependencies"
-import { comparePassword } from "@/_lib/http/bcript/comparePassword"
+import { comparePassword } from "_lib/http/bcript/comparePassword"
 
 export const loginUserUseCase =(dependancies:IDependencies)=>{
     const {repositories:{findByEmail}}=dependancies

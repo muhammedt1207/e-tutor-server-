@@ -1,5 +1,4 @@
-import { generateAcceptanceMail } from "@/_lib/mailGenerator/generateAcceptMail"
-import instructorApplicationAccept from "@/infrastructure/kafka/consumer/instructorApplicationAccept"
+import { generateAcceptanceMail } from "../../../_lib/mailGenerator/generateAcceptMail";
 
 export const sendInstructorAcceptenceMail=async(
     email:string

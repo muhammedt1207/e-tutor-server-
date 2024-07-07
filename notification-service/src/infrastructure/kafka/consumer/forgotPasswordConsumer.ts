@@ -1,4 +1,4 @@
-import sendForgotPasswordMail from "@/infrastructure/services/mail/sendForgotPasswordMail"
+import sendForgotPasswordMail from "../../services/mail/sendForgotPasswordMail";
 
 export default async (data:{email:string,token:string})=>{
     try {

@@ -1,6 +1,4 @@
-import { ErrorResponse } from "@/_lib/http/common/error";
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { findUserByEmailUseCase } from "@/application/useCases/findUserByEmailUseCase";
+import { IDependencies } from "application/interfaces/IDependencies";
 import { NextFunction, Request, Response } from "express";
 
 export const getUsersByEmail = (dependencies: IDependencies) => {
@@ -13,7 +11,7 @@ export const getUsersByEmail = (dependencies: IDependencies) => {
             const emails = req.body.userIds;
             console.log(emails,'email for find users----------------------------------------------------------------');
             
-            const userData = [];
+            const userData:any = [];
             for (let i = 0; i < emails.length; i++) {
                 userData[i] = await findUserByEmailUseCase(dependencies).execute(emails[i]);
             }

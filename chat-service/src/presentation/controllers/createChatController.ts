@@ -1,6 +1,6 @@
 import { IDependencies } from "../../application/insterfaces/IDependencies";
 import { Request, Response, NextFunction } from "express";
-import mongoose, { Mongoose,Types } from 'mongoose';
+import mongoose from 'mongoose';
 
 export const createChatController = (dependencies: IDependencies) => {
     const {

@@ -1,13 +1,10 @@
-import { findUserByEmailUseCase, verifyOtpUseCase } from "@/application/useCases";
 import { hashPassword } from "../../_lib/http/bcript/hashPassword";
 import { generateAccessToken } from "../../_lib/http/jwt";
 import { generateRefreshToken } from "../../_lib/http/jwt/generateRefreshToken";
-import { signupValidation } from "../../_lib/http/validation/signup";
 import { IDependencies } from "../../application/interfaces/IDependencies";
 import { Request, Response, NextFunction } from 'express'
-import { ErrorResponse } from "@/_lib/http/common/error";
-import { userCreatedConsumer } from "@/infrastructure/kafka/consumer";
-import userCreatedProducer from "@/infrastructure/kafka/producer/userCreatedProducer";
+import { ErrorResponse } from "_lib/http/common/error";
+import userCreatedProducer from "infrastructure/kafka/producer/userCreatedProducer";
 
 export const signupController = (dependencies: IDependencies) => {
     const {

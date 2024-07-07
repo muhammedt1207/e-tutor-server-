@@ -1,5 +1,4 @@
-import { IDependencies } from "@/application/insterfaces/IDependencies";
-import { findNotification } from "@/infrastructure/database/mongo/repositories";
+import { IDependencies } from "../../application/insterfaces/IDependencies";
 import { NextFunction, Request, Response } from "express";
 
 export const findNotificationController=(dependencies:IDependencies)=>{

@@ -1,4 +1,4 @@
-import { addUserToGroup } from "@/infrastructure/database/mongo/repositories/addUserToGroup";
+import { addUserToGroup } from "../../database/mongo/repositories";
 
 export default async(
     data:any

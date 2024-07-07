@@ -8,5 +8,5 @@ spec:
   ports:
   - name:  notification-service
     protocol: TCP
-    port:  8003
-    targetPort: 8003
+    port:  8082
+    targetPort: 8082

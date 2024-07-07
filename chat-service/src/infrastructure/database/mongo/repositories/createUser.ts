@@ -1,4 +1,4 @@
-import { UserEntity } from "@/domain/entities/userEntity";
+import { UserEntity } from "../../../../domain/entities";
 import { User } from "../models/user";
 
 export const createUser =async(

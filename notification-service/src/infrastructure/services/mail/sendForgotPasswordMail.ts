@@ -1,4 +1,4 @@
-import { genereateForgetPasswordMail } from "@/_lib/mailGenerator/generateForgotPasswordMail"
+import { genereateForgetPasswordMail } from "../../../_lib/mailGenerator/generateForgotPasswordMail";
 
 export default async(email:string,token:string)=>{
     try {

@@ -1,4 +1,4 @@
-import { sendVerifyMailProducer } from "@/infrastructure/kafka/producer";
+import { sendVerifyMailProducer } from "../../kafka/producer";
 import { generateVerificationMail } from "../../../_lib/mailGenerator/generateVerificationMail"
 import { generateOTPCode } from "../../../_lib/otp"
 
@@ -10,7 +10,7 @@ export const sendVerificationMail = async (email:string)=>{
         console.log(typeof otp,email);
         
         const sendMail=await generateVerificationMail(email,otp)
-        console.log('send verification mail producer ');
+        console.log('send verification mail producer ',sendMail);
         
         await sendVerifyMailProducer({email:email,otp:otp})
     } catch (error) {

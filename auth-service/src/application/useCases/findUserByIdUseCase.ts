@@ -1,4 +1,4 @@
-import { dependancies } from "@/_boot/dependencies";
+
 import { IDependencies } from "../interfaces/IDependencies";
 
 export const findUserByIdUseCase =(dependancies:IDependencies)=>{

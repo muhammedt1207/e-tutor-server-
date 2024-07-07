@@ -6,11 +6,6 @@ enum Role{
     admin='admin'
 }
 
-interface profile{
-    avatar?:string,
-    dob?:Date,
-}
-
 
 export interface UserEntity{
     _id?:ObjectId,

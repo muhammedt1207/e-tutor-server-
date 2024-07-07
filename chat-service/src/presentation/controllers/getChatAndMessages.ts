@@ -1,5 +1,4 @@
-import { dependancies } from "@/_boot/dependencies";
-import { IDependencies } from "@/application/insterfaces/IDependencies";
+import { IDependencies } from "../../application/insterfaces/IDependencies";
 import { NextFunction, Request, Response } from "express";
 
 export const getChatAndMessages=(dependancies:IDependencies)=>{

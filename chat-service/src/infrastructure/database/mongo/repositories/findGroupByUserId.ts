@@ -1,4 +1,4 @@
-import { ChatEntity } from "@/domain/entities";
+import { ChatEntity } from "../../../../domain/entities";
 import { Chat } from "../models";
 
 export const findGroupByUserId = async (userId: string):Promise<ChatEntity[]|null> => {

@@ -1,4 +1,4 @@
-import {Kafka,Producer,Consumer,Partitioners} from 'kafkajs'
+import {Kafka,Producer,Consumer} from 'kafkajs'
 
 export const kafka = new Kafka({
     clientId:'auth-service',

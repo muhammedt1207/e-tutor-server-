@@ -1,4 +1,4 @@
-import { UserEntity } from '@/domain/entities';
+import { UserEntity } from 'domain/entities';
 import { producer } from './../index';
 
 export default async (data: UserEntity) => {

@@ -1,4 +1,4 @@
-import { saveOtp } from "@/infrastructure/database/mongo/repostories/saveOtp";
+import { saveOtp } from "infrastructure/database/mongo/repostories/saveOtp";
 
 export default async(
     data:{ email: string; otp: string; }

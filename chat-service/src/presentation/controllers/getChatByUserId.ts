@@ -1,5 +1,4 @@
-import { IDependencies } from "@/application/insterfaces/IDependencies";
-import { findchatByIdUseCase } from "@/application/useCases";
+import { IDependencies } from "../../application/insterfaces/IDependencies";
 import { NextFunction, Request, Response } from "express";
 
 export const getChatByUserId=(dependencies:IDependencies)=>{

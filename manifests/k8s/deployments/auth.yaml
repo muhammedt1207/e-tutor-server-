@@ -15,8 +15,11 @@ spec:
         app: auth-service
     spec:
       containers:
-      - image: muhammedt1207/etutor-auth:latest
+      - image: etutor.azurecr.io/etutor-auth:latest
         name: auth-service
+        env:
+            - name: NODE_PATH
+              value: "/app/dist" 
         envFrom:
           - configMapRef:
               name: auth-service-config

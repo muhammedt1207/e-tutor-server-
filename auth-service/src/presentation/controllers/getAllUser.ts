@@ -1,6 +1,6 @@
-import { ErrorResponse } from "@/_lib/http/common/error";
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { getAllUser } from "@/infrastructure/database/mongo/repostories/getAllUser";
+import { ErrorResponse } from "_lib/http/common/error";
+import { IDependencies } from "application/interfaces/IDependencies";
+import { getAllUser } from "infrastructure/database/mongo/repostories/getAllUser";
 import { NextFunction, Request, Response } from "express";
 
 export const getAllUserController = (dependencies: IDependencies) => {

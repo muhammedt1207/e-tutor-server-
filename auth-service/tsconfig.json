@@ -13,9 +13,6 @@
     "noUnusedLocals": true,
     "moduleResolution": "node",
     "baseUrl": "./src",
-    "paths": {
-      "@/*": ["*"]
-    },
     "typeRoots": ["node_modules/@types"],
     "esModuleInterop": true,
     "skipLibCheck": false,

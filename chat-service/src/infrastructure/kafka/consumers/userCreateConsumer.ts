@@ -1,4 +1,4 @@
-import { createUser } from "@/infrastructure/database/mongo/repositories/createUser";
+import { createUser } from "../../database/mongo/repositories";
 
 export default async(
     data:any

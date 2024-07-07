@@ -1,6 +1,6 @@
-import { ErrorResponse } from "@/_lib/http/common/error";
-import { IDependencies } from "@/application/interfaces/IDependencies";
-import { findUserByEmailUseCase } from "@/application/useCases/findUserByEmailUseCase";
+
+import { IDependencies } from "application/interfaces/IDependencies";
+
 import { NextFunction, Request, Response } from "express";
 
 export const getUserByEmail = (dependencies: IDependencies) => {

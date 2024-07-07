@@ -1,7 +1,7 @@
-import { hashPassword } from "@/_lib/http/bcript/hashPassword";
-import { ErrorResponse } from "@/_lib/http/common/error";
-import { verifyForgotPasswordToken } from "@/_lib/http/jwt/verifyForgotPasswordToken";
-import { IDependencies } from "@/application/interfaces/IDependencies";
+import { hashPassword } from "_lib/http/bcript/hashPassword";
+import { ErrorResponse } from "_lib/http/common/error";
+import { verifyForgotPasswordToken } from "_lib/http/jwt/verifyForgotPasswordToken";
+import { IDependencies } from "application/interfaces/IDependencies";
 import { NextFunction, Request, Response } from "express";
 
 export const updatePasswordController = (dependencies: IDependencies) => {

@@ -1,4 +1,3 @@
-import { dependancies } from "@/_boot/dependencies";
 import { IDependencies } from "../insterfaces/IDependencies";
 
 export const findChatByUserIdUseCase=(dependancies:IDependencies)=>{
