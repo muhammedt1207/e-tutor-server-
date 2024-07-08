@@ -11,8 +11,14 @@ export class ConsumerService implements OnModuleInit {
 
   constructor(@InjectModel(Enrollment.name) private enrollmentModel: Model<Enrollment>) {
     this.kafka = new Kafka({
-      clientId: 'course-service',
-      brokers: ['localhost:29092'],
+      clientId: 'course-client',
+      brokers: ['pkc-4j8dq.southeastasia.azure.confluent.cloud:9092'],
+      ssl: true,
+      sasl: {
+        mechanism: 'plain',
+        username: 'XXP3WYF5WBDQBUC5',
+        password: 'ccDWKkS1gr0SZkJ1o6ieY6yY2XqRF0YJAawrk51H+78pA7QvPZE+K4LWA2V12srE'
+      }
     });
     this.consumer = this.kafka.consumer({ groupId: 'course-service' });
   }

@@ -4,12 +4,12 @@ metadata:
   name: ingress-controller
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
-    nginx.ingress.kubernetes.io/enable-cors: "true"
-    nginx.ingress.kubernetes.io/cors-allow-origin: "http://gizmocart.shop"
+    # nginx.ingress.kubernetes.io/enable-cors: "true"
+    # nginx.ingress.kubernetes.io/cors-allow-origin: "http://gizmocart.shop"
 spec:
   ingressClassName: webapprouting.kubernetes.azure.com
   rules:
-  - host: webapprouting.gizmocart.shop
+  - host: etutor.gizmocart.shop
     http:
       paths:
       - path: /api/auth
