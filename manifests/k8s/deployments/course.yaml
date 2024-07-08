@@ -15,7 +15,7 @@ spec:
         app: course-service
     spec:
       containers:
-      - image: etutor.azurecr.io/etutor-course:latest
+      - image: muhammedt1207/etutor-course:latest
         name: course-service
         envFrom:
           - configMapRef:

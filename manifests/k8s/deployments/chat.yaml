@@ -15,7 +15,7 @@ spec:
         app: chat-service
     spec:
       containers:
-      - image: etutor.azurecr.io/etutor-chat:latest
+      - image: muhammedt1207/etutor-chat:latest
         name: chat-service
         envFrom:
           - configMapRef:

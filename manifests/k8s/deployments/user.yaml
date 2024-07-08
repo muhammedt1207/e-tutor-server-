@@ -15,7 +15,7 @@ spec:
         app: user-service
     spec:
       containers:
-      - image: etutor.azurecr.io/etutor-user:latest
+      - image: muhammedt1207/etutor-user:latest
         name: user-service
         envFrom:
           - configMapRef:

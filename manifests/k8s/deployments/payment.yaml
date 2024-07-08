@@ -15,7 +15,7 @@ spec:
         app: payment-service
     spec:
       containers:
-      - image:etutor.azurecr.io/etutor-payment:latest
+      - image: muhammedt1207/etutor-payment:latest
         name: payment-service
         envFrom:
           - configMapRef:

@@ -1,7 +1,7 @@
 import {Kafka,Producer,Consumer} from 'kafkajs'
 
 export const kafka = new Kafka({
-    clientId:'auth-service',
+    clientId:'notification-service',
     brokers:['localhost:29092']
 })
 
