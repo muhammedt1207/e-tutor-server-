@@ -18,7 +18,7 @@ app.use(cookieParser())
 app.use(morgan('dev'))
 
 
-app.use('/api/auth',router(dependancies))
+app.use('/api/auth/user',router(dependancies))
 
 
 app.use("*",(req: Request, res: Response) => {
