@@ -26,6 +26,7 @@ app.use(cors({
 }));
 connectSocketIo(server)
 app.use('/',router(dependancies))
+app.use('/api/chat',router(dependancies))
 
 
 app.use("*",(req: Request, res: Response) => {
