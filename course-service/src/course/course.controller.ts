@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Param, Put, Delete, HttpCode, HttpStatus, 
 import { CourseService } from './course.service';
 import { NotFoundError } from 'rxjs';
 
-@Controller('api/course/course')
+@Controller('/course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
 
