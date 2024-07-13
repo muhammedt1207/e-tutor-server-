@@ -1,5 +1,5 @@
 // src/app.module.ts
-import { Module } from '@nestjs/common';
+import { Module, OnModuleInit } from '@nestjs/common';
 import { PaymentModule } from './payment/payment.module';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
@@ -29,4 +29,13 @@ import configuration from './config/config';
   controllers: [],
   providers: [ConsumerService, ProducerService],
 })
-export class AppModule {}
+export class AppModule implements OnModuleInit {
+  constructor(private configService: ConfigService) {}
+
+  onModuleInit() {
+    const mongoUri = this.configService.get<string>('mongoUri');
+    console.log('MongoDB URI:', mongoUri);
+
+   
+  }
+}

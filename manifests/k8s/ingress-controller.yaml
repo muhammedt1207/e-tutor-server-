@@ -49,12 +49,12 @@ spec:
             port:
               number: 8085
       - path: /socket.io
-            pathType: Prefix
-            backend:
-              service:
-                name: etutor-chat-service
-                port:
-                  number: 8087        
+        pathType: Prefix
+        backend:
+          service:
+            name: etutor-chat-service
+            port:
+              number: 8087        
       - path: /api/payment
         pathType: Prefix
         backend:
