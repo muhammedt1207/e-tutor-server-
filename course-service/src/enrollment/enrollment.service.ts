@@ -74,7 +74,7 @@ async updateProgress(progressData: any): Promise<Enrollment> {
 
   async getPurchasedCourses(userId:string){
     try {
-      const courses=await this.enrollmentModel.find({userId:userId}).populate('courseId').exec()
+      const courses=await this.enrollmentModel.find({userId:userId}).populate('courseId')
       if(!courses){
         throw new NotFoundException('Enrollment Not Found')
       }

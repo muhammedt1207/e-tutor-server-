@@ -1,12 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document, Schema as MongooseSchema } from 'mongoose';
+import { Course } from './course.model';
 
 @Schema()
 export class Enrollment extends Document {
   @Prop({ required: true })
   userId: string;
 
-  @Prop({ type: MongooseSchema.Types.ObjectId, required: true })
+  @Prop({ type: MongooseSchema.Types.ObjectId, required: true ,ref:"Course"})
   courseId: MongooseSchema.Types.ObjectId;
 
   @Prop({ default: Date.now })
