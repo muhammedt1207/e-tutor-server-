@@ -45,8 +45,8 @@ export class StripeService {
         },
       ],
       mode: 'payment',
-      success_url: 'http://localhost:5173/course/paymentSuccess',
-      cancel_url: 'http://localhost:5173/course/paymentSuccess',
+      success_url: 'https://gizmocart.shop/course/paymentSuccess',
+      cancel_url: 'https://gizmocart.shop/course/paymentSuccess',
       metadata: {
         userId: data.userId,
         courseId: data.courseId,

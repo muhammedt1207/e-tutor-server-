@@ -51,8 +51,8 @@ export class SubscriptionService {
         },
       ],
       customer: customer.id,
-      success_url: 'http://localhost:5173/membership/paymentSuccess',
-      cancel_url: 'http://localhost:5173/membership/paymentCancel',
+      success_url: 'https://gizmocart.shop/membership/paymentSuccess',
+      cancel_url: 'https://gizmocart.shop/membership/paymentCancel',
       subscription_data: {
         metadata: {
           instructorId,
