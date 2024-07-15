@@ -7,7 +7,7 @@ export const findChatByUserId=async(userId:string):Promise<ChatEntity[]|null>=>{
         const chats = await Chat.find({
             participants: { $in: [userId] },
             type: 'individual'
-        }).populate('participants')
+        }).populate('participants').populate('messages')
         
         if (!chats.length) {
             throw new Error("No groups found for the user");
