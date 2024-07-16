@@ -15,11 +15,13 @@ export class SubscriptionController {
   }
 
   @Get('/:userId')
-  async getSubscriptionByUserId(@Param() userId:string, @Res() res){
+  async getSubscriptionByUserId(@Param() userId:any, @Res() res){
     try {
-      console.log('user id :',userId);      
+      console.log('user id :',userId?.userId);  
+      console.log(typeof userId,'user id type ');
+          
 
-      const result = await this.SubscrptionService.getSubscriptions(userId)
+      const result = await this.SubscrptionService.getSubscriptions(userId?.userId)
       if (!result) {
         throw new Error("can't find the Subscriptio");
       }
