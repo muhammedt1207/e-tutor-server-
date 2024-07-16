@@ -18,6 +18,25 @@ export class SubscriptionService {
     });
   }
 
+  async getSubscriptions(userId: string): Promise<Subscription[]> {
+    try {
+      const subscriptions = await this.subscriptionRepository.find({ userId: userId }).exec();
+  
+      const uniqueSubscriptionsMap = new Map<string, Subscription>();
+      subscriptions.forEach(subscription => {
+        const key = `${subscription.userId}-${subscription.instructorId}`;
+        if (!uniqueSubscriptionsMap.has(key) || uniqueSubscriptionsMap.get(key)!.currentPeriodEnd < subscription.currentPeriodEnd) {
+          uniqueSubscriptionsMap.set(key, subscription);
+        }
+      });
+  
+      return Array.from(uniqueSubscriptionsMap.values());
+    } catch (error) {
+      console.error("Error fetching subscriptions:", error);
+      throw new Error("Failed to fetch subscriptions");
+    }
+  }
+  
   async createSession(email: string, instructorId: string) {
     const priceId = await this.createPrice();
 

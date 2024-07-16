@@ -1,5 +1,5 @@
 import { Schema, Prop, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Date, Document } from 'mongoose';
 
 @Schema()
 export class Subscription extends Document {
@@ -16,7 +16,7 @@ export class Subscription extends Document {
   status: string;
 
   @Prop({ required: true })
-  currentPeriodEnd: number;
+  currentPeriodEnd: Date;
 
   @Prop({ required: true })
   amount: number;

@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpStatus, Param, Post, Req, Res } from '@nestjs/common';
 import { Response } from 'express';
 import Stripe from 'stripe';
-import { SubscriptionService } from './subscrption.service'; 
+import { SubscriptionService } from './subscrption.service';
 @Controller('subscription')
 export class SubscriptionController {
   private stripe: Stripe;
@@ -14,53 +14,72 @@ export class SubscriptionController {
     });
   }
 
-  @Get('/:userId/:instructorId')
-  async getSubscriptionData(@Param() userId:any,@Res() res){
-   try {
-    
-       console.log("user Id :",userId.userId);
-       console.log('instructor id:', userId.instructorId);
-   
-       const result=await this.SubscrptionService.getSubscription(userId.userId,userId.instructorId)
-       if(!result){
+  @Get('/:userId')
+  async getSubscriptionByUserId(@Param() userId:string, @Res() res){
+    try {
+
+
+      const result = await this.SubscrptionService.getSubscriptions(userId)
+      if (!result) {
         throw new Error("can't find the Subscriptio");
-        
-       }
-       res.status(HttpStatus.OK).json({
-           success:true,
-           data:result,
-           message:'subscription data'
-       })
-       
-   } catch (error) {
-    throw new Error(error);
-    
-   }
-    
+      }
+      console.log(result);
+      
+      res.status(HttpStatus.OK).json({
+        success: true,
+        data: result,
+        message: 'subscription data'
+      })
+
+    } catch (error) {
+      throw new Error(error);
+    }
   }
+  @Get('/:userId/:instructorId')
+  async getSubscriptionData(@Param() userId: any, @Res() res) {
+    try {
+
+      console.log("user Id :", userId.userId);
+      console.log('instructor id:', userId.instructorId);
+
+      const result = await this.SubscrptionService.getSubscription(userId.userId, userId.instructorId)
+      if (!result) {
+        throw new Error("can't find the Subscriptio");
+
+      }
+      res.status(HttpStatus.OK).json({
+        success: true,
+        data: result,
+        message: 'subscription data'
+      })
+
+    } catch (error) {
+      throw new Error(error);
+    }
+  }
+
 
   @Post('create-checkout-session')
   async createCheckoutSession(
     @Body() data: { email: string; instructorId: string },
   ) {
     const session = await this.SubscrptionService.createSession(data.email, data.instructorId);
-    
     return {
       id: session.id,
     };
   }
 
   @Post('webhook')
-  async handleWebhook(@Body() payload: any, @Req()req, @Res() res: Response) {
+  async handleWebhook(@Body() payload: any, @Req() req, @Res() res: Response) {
     const sig = req.headers['stripe-signature'];
     let event;
-    console.log(payload,'payload data');
-    
+    console.log(payload, 'payload data');
+
     try {
       event = this.stripe.webhooks.constructEvent(
         payload,
         sig,
-        '******************************************', 
+        '******************************************',
       );
     } catch (err) {
       console.log(`Webhook Error: ${err.message}`);
@@ -74,8 +93,8 @@ export class SubscriptionController {
         const userId = subscription.customer;
         const instructorId = subscription.metadata.instructorId;
 
-        const data={
-            userId,instructorId,subscription
+        const data = {
+          userId, instructorId, subscription
         }
         // await this.SubscrptionService.saveSubscription(data);
         break;
@@ -87,22 +106,22 @@ export class SubscriptionController {
   }
 
   @Post('save')
-  async saveSubscriptions(@Body() subscriptionData: any ,@Res() res) {
+  async saveSubscriptions(@Body() subscriptionData: any, @Res() res) {
     try {
-        
-        console.log(subscriptionData,'subscription is saving ................');
-        
-    const savedData=await this.SubscrptionService.saveSubscription(subscriptionData);
-    res.status(HttpStatus.OK).json({
-        success:true,
-        data:savedData,
-        message:"payment data saved"
-    })
+
+      console.log(subscriptionData, 'subscription is saving ................');
+
+      const savedData = await this.SubscrptionService.saveSubscription(subscriptionData);
+      res.status(HttpStatus.OK).json({
+        success: true,
+        data: savedData,
+        message: "payment data saved"
+      })
     } catch (error) {
-        console.log(error);
-        throw new Error(error);
-        
-        
+      console.log(error);
+      throw new Error(error);
+
+
     }
   }
 }
