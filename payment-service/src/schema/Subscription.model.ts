@@ -15,7 +15,7 @@ export class Subscription extends Document {
   @Prop()
   status: string;
 
-  @Prop({ required: true })
+  @Prop({ required: true ,type: Date})
   currentPeriodEnd: Date;
 
   @Prop({ required: true })

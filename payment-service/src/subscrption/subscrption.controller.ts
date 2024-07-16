@@ -17,7 +17,7 @@ export class SubscriptionController {
   @Get('/:userId')
   async getSubscriptionByUserId(@Param() userId:string, @Res() res){
     try {
-
+      console.log('user id :',userId);      
 
       const result = await this.SubscrptionService.getSubscriptions(userId)
       if (!result) {
