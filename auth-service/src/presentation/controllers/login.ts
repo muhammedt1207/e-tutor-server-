@@ -11,13 +11,15 @@ export const loginController = (dependencies: IDependencies) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             console.log(req.body);
-            
+            const {email,password}=req.body
             // const { value, error } = loginCalidation.validate(req.body)
 
             // if (error) {
             //     throw new Error(error.message);
             // }
             const value=req.body
+            console.log(value,'login values',email,password);
+            
             const result = await loginUserUseCase(dependencies)
                 .execute(value.email, value.password)
 

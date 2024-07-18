@@ -22,7 +22,7 @@
     "nodemon": "^3.1.0",
     "react-oauth": "^0.0.1",
     "tsconfig-paths": "^4.2.0",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
@@ -34,7 +34,8 @@
     "@types/kafkajs": "^1.9.0",
     "@types/mongoose": "^5.11.97",
     "@types/morgan": "^1.9.9",
-    "concurrently": "^8.2.2"
+    "concurrently": "^8.2.2",
+    "ts-node": "^10.9.2"
   },
   "_moduleAliases": {
     "@": "./dist"

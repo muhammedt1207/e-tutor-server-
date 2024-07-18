@@ -2,6 +2,7 @@ import { Controller, Get, Query, Res, HttpStatus, Param, HttpException, Req, Bod
 import { EnrollmentService } from './enrollment.service';
 import { NotFoundError } from 'rxjs';
 import { Request, Response } from 'express';
+import { log } from 'console';
 
 @Controller('enrollment')
 export class EnrollmentController {
@@ -83,6 +84,25 @@ export class EnrollmentController {
       
     }
 
+  }
+
+  @Get('instructor/:instructorRef')
+  async getPurchasedUsers(@Param('instructorRef') instructorRef:string,@Res() res ){
+    console.log(instructorRef)
+    try {
+      const result=await this.enrollmentService.findUsersPurchasedByInstructor(instructorRef);
+      if(!result){
+        throw new Error("Can't get the result");
+      }
+      log(result,'purchased users')
+      res.status(HttpStatus.OK).json({
+        success:true,
+        data:result,
+
+      })
+    } catch (error) {
+      
+    }
   }
 
     @Get('instrocterDash/:instructorRef')

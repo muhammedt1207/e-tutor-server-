@@ -13,7 +13,7 @@ app.use(cookieParser())
 app.use(morgan('tiny'))
 
 
-const allowedOrigins = [process.env.CLIENT_URL].filter(Boolean) as string[];
+const allowedOrigins = ['http://localhost:5173'].filter(Boolean) as string[];
 const corsOptions={
     origin:allowedOrigins,
     credentials:true
@@ -23,8 +23,8 @@ app.use(cors(corsOptions))
 
 
 const routeConfigs = [
-    { path: '/api/auth', destinationUrl: process.env.AUTH_URL },
-    { path:'/api/user'  ,destinationUrl:process.env.USER_URL},
+    { path: '/api/auth', destinationUrl: 'http://localhost:8081/' },
+    { path:'/api/user'  ,destinationUrl:"http://localhost:8081"},
     {path:'/api/course',destinationUrl:process.env.COURSE_URL},
     {path:'/api/payment',destinationUrl:process.env.PAYMENT_URL},
     {path:'/api/chat',destinationUrl:process.env.CHAT_URL}

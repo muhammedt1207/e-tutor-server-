@@ -370,4 +370,27 @@ async updateProgress(progressData: any): Promise<Enrollment> {
       throw new InternalServerErrorException('Failed to fetch enrollments by category and date');
     }
   }
+
+  async findUsersPurchasedByInstructor(instructorRef: string) {
+    try {
+      console.log(instructorRef);
+      
+      const courses = await this.courseModel.find()
+      const courseIds = courses.map(course => course._id);
+      console.log(courses,'courses');
+      
+      const enrollments = await this.enrollmentModel
+        .find({ courseId: { $in: courseIds } })
+        .populate('userId')
+        .exec();
+  
+      console.log(enrollments);
+      
+      return enrollments;
+    } catch (error) {
+      throw new Error(error);
+      
+    }
+   
+  }
 }

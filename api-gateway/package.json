@@ -19,7 +19,8 @@
     "morgan": "^1.10.0",
     "nodemon": "^3.1.0",
     "proxy": "^2.1.1",
-    "typescript": "^5.4.5"
+    "typescript": "^5.5.3",
+    "yarn": "^1.22.22"
   },
   "devDependencies": {
     "@types/cookie-parser": "^1.4.7",
@@ -28,6 +29,8 @@
     "@types/express": "^4.17.21",
     "@types/express-http-proxy": "^1.6.6",
     "@types/morgan": "^1.9.9",
-    "@types/proxy": "^1.0.4"
+    "@types/proxy": "^1.0.4",
+    "concurrently": "^8.2.2",
+    "ts-node": "^10.9.2"
   }
 }
