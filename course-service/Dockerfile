@@ -13,7 +13,7 @@ RUN yarn install --frozen-lockfile
 COPY . .
 
 # Build the application using the local @nestjs/cli
-RUN npx nest build
+RUN yarn build
 
 # Expose the application port
 EXPOSE 8085
