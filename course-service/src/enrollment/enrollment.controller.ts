@@ -28,6 +28,25 @@ export class EnrollmentController {
       });
     }
   }
+  @Get('instructor/:instructorRef')
+  async getPurchasedUsers(@Param('instructorRef') instructorRef:string,@Res() res ){
+    console.log(instructorRef)
+    try {
+      const result=await this.enrollmentService.findUsersPurchasedByInstructor(instructorRef);
+      if(!result){
+        throw new Error("Can't get the result");
+      }
+      log(result,'purchased users')
+      res.status(HttpStatus.OK).json({
+        success:true,
+        data:result,
+
+      })
+    } catch (error) {
+      
+    }
+  }
+
   @Get('/adminDashboard')
   async getAllDataForAdminDash() {
     try {
@@ -86,24 +105,7 @@ export class EnrollmentController {
 
   }
 
-  @Get('instructor/:instructorRef')
-  async getPurchasedUsers(@Param('instructorRef') instructorRef:string,@Res() res ){
-    console.log(instructorRef)
-    try {
-      const result=await this.enrollmentService.findUsersPurchasedByInstructor(instructorRef);
-      if(!result){
-        throw new Error("Can't get the result");
-      }
-      log(result,'purchased users')
-      res.status(HttpStatus.OK).json({
-        success:true,
-        data:result,
-
-      })
-    } catch (error) {
-      
-    }
-  }
+  
 
     @Get('instrocterDash/:instructorRef')
     async getEnrollmentsForInstructor(
