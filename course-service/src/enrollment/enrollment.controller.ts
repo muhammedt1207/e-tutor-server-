@@ -30,7 +30,7 @@ export class EnrollmentController {
   }
   @Get('instructor/:instructorRef')
   async getPurchasedUsers(@Param('instructorRef') instructorRef:string,@Res() res ){
-    console.log(instructorRef)
+    console.log('instructor ref: ',instructorRef)
     try {
       const result=await this.enrollmentService.findUsersPurchasedByInstructor(instructorRef);
       if(!result){
