@@ -382,6 +382,7 @@ async updateProgress(progressData: any): Promise<Enrollment> {
       const enrollments = await this.enrollmentModel
         .find({ courseId: { $in: courseIds } })
         .populate('userId')
+        .populate('courseId')
         .exec();
   
       console.log(enrollments);

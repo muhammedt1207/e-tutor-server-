@@ -12,7 +12,7 @@ export const getUsersByEmail = (dependencies: IDependencies) => {
             console.log(emails,'email for find users----------------------------------------------------------------');
             
             const userData:any = [];
-            for (let i = 0; i < emails.length; i++) {
+            for (let i = 0; i < emails?.length; i++) {
                 userData[i] = await findUserByEmailUseCase(dependencies).execute(emails[i]);
             }
             
