@@ -5,7 +5,7 @@ import { router } from '../infrastructure/routes';
 import { dependancies } from '../_boot/dependencies';
 import morgan from 'morgan'
 import mongoSanitize from "express-mongo-sanitize"
-import { errorHandler } from '_lib/http/common/error';
+import { errorHandler } from '../_lib/http/common/error';
 import helmet from 'helmet';
 dotenv.config();
 
