@@ -1,8 +1,8 @@
 
-import { generateAccessToken } from "_lib/http/jwt";
-import { generateRefreshToken } from "_lib/http/jwt/generateRefreshToken";
-import { IDependencies } from "application/interfaces/IDependencies";
-import { UserEntity } from "domain/entities";
+import { generateAccessToken } from "../../_lib/http/jwt";
+import { generateRefreshToken } from "../../_lib/http/jwt/generateRefreshToken";
+import { IDependencies } from "../../application/interfaces/IDependencies";
+import { UserEntity } from "../../domain/entities";
 import { NextFunction, Request, Response } from "express";
 
 export const googleAuthController = (dependancies:IDependencies)=>{

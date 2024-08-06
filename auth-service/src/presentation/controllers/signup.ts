@@ -3,8 +3,8 @@ import { generateAccessToken } from "../../_lib/http/jwt";
 import { generateRefreshToken } from "../../_lib/http/jwt/generateRefreshToken";
 import { IDependencies } from "../../application/interfaces/IDependencies";
 import { Request, Response, NextFunction } from 'express'
-import { ErrorResponse } from "_lib/http/common/error";
-import userCreatedProducer from "infrastructure/kafka/producer/userCreatedProducer";
+import { ErrorResponse } from "../../_lib/http/common/error";
+import userCreatedProducer from "../../infrastructure/kafka/producer/userCreatedProducer";
 
 export const signupController = (dependencies: IDependencies) => {
     const {

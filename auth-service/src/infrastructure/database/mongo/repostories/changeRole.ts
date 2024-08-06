@@ -1,4 +1,4 @@
-import { UserEntity } from "domain/entities";
+import { UserEntity } from "../../../../domain/entities";
 import { User } from "../model/UserSchema";
 
 export const changeRole=async(id:string):Promise<UserEntity|null>=>{

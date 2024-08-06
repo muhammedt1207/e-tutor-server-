@@ -1,8 +1,8 @@
 
-import { ErrorResponse } from "_lib/http/common/error";
-import { generateForgetToken } from "_lib/http/jwt/genarateForgetToken";
-import { IDependencies } from "application/interfaces/IDependencies";
-import forgetPasswordProducer from "infrastructure/kafka/producer/forgetPasswordProducer";
+import { ErrorResponse } from "../../_lib/http/common/error";
+import { generateForgetToken } from "../../_lib/http/jwt/genarateForgetToken";
+import { IDependencies } from "../../application/interfaces/IDependencies";
+import forgetPasswordProducer from "../../infrastructure/kafka/producer/forgetPasswordProducer";
 import { NextFunction, Request, Response } from "express";
 
 export const forgotPassword=(dependancies:IDependencies)=>{

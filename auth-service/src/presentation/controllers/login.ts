@@ -1,7 +1,7 @@
-import { generateAccessToken } from "_lib/http/jwt";
-import { generateRefreshToken } from "_lib/http/jwt/generateRefreshToken";
+import { generateAccessToken } from "../../_lib/http/jwt";
+import { generateRefreshToken } from "../../_lib/http/jwt/generateRefreshToken";
 
-import { IDependencies } from "application/interfaces/IDependencies";
+import { IDependencies } from "../../application/interfaces/IDependencies";
 import { NextFunction, Request, Response } from "express";
 
 export const loginController = (dependencies: IDependencies) => {
