@@ -23,8 +23,8 @@ app.use(cors(corsOptions))
 
 
 const routeConfigs = [
-    { path: '/api/auth', destinationUrl: 'http://localhost:8081/' },
-    { path:'/api/user'  ,destinationUrl:"http://localhost:8081"},
+    { path: '/api/auth', destinationUrl:process.env.AUTH_URL  },
+    { path:'/api/user'  ,destinationUrl:process.env.USER_URL},
     {path:'/api/course',destinationUrl:process.env.COURSE_URL},
     {path:'/api/payment',destinationUrl:process.env.PAYMENT_URL},
     {path:'/api/chat',destinationUrl:process.env.CHAT_URL}

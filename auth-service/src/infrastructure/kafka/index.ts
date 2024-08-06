@@ -2,12 +2,12 @@ import { Consumer, Kafka, Producer } from "kafkajs"
 
 const kafka = new Kafka({
     clientId: 'auth-client',
-    brokers: ['pkc-4j8dq.southeastasia.azure.confluent.cloud:9092'],
+    brokers: ['pkc-41p56.asia-south1.gcp.confluent.cloud:9092'],
     ssl: true,
     sasl: {
       mechanism: 'plain',
-      username: 'XXP3WYF5WBDQBUC5',
-      password: 'ccDWKkS1gr0SZkJ1o6ieY6yY2XqRF0YJAawrk51H+78pA7QvPZE+K4LWA2V12srE'
+      username: 'VLNLXJWK6RGUAVPV',
+      password: 'aSPSOZ71Ksorv3qvBkuQZFR3ZxQ6h13TNXXEWMagufXLMjQuFmVlN0c3/c5jAr+Q'
     }
   });
 
