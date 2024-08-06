@@ -4,7 +4,9 @@ import cookieParser from 'cookie-parser'
 import { router } from '../infrastructure/routes';
 import { dependancies } from '../_boot/dependencies';
 import morgan from 'morgan'
+import mongoSanitize from "express-mongo-sanitize"
 import { errorHandler } from '_lib/http/common/error';
+import helmet from 'helmet';
 dotenv.config();
 
 
@@ -15,6 +17,8 @@ const PORT:number=Number(process.env.port)||8081
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
+app.use(helmet());
+app.use(mongoSanitize());
 app.use(morgan('dev'))
 
 app.use('/api/auth',router(dependancies))
