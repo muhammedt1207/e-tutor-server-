@@ -6,7 +6,7 @@ async function bootstrap() {
   dotenv.config()
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe());
-  app.setGlobalPrefix("/api/course")
+
   await app.listen(8085);
 }
 bootstrap();

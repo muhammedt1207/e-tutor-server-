@@ -10,7 +10,6 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.use(cookieParser())
   console.log('server running on port number 8083');
-  app.setGlobalPrefix("/api/user")
   await app.listen(8083);
 }
 bootstrap();

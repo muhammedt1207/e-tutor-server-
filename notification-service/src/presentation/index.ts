@@ -12,7 +12,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 const notificationRoute = notificationRouter(dependancies);
-app.use('/api/notification',notificationRoute)
+app.use('/',notificationRoute)
 
 
 app.listen(PORT,()=>{
