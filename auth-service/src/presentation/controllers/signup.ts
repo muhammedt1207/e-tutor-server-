@@ -114,11 +114,15 @@ export const signupController = (dependencies: IDependencies) => {
                     )
 
                     res.cookie("access_token", accessToken, {
-                        httpOnly: true
+                        httpOnly: true,
+                        secure:true,
+                        sameSite: "none"
                     })
 
                     res.cookie('refresh_token', refreshToken, {
-                        httpOnly: true
+                        httpOnly: true,
+                        secure:true,
+                        sameSite: "none"
                     })
                     res.status(200).json({
                         success: true,
