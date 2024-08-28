@@ -16,6 +16,7 @@ app.use(morgan('tiny'))
 const allowedOrigins = ['https://e-tutor-umber.vercel.app'].filter(Boolean) as string[];
 const corsOptions={
     origin:allowedOrigins,
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials:true
 }
 app.use(cors(corsOptions))
