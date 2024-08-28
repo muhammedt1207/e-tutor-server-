@@ -7,7 +7,7 @@ async function bootstrap() {
   dotenv.config()
   const app = await NestFactory.create(AppModule);
   const corsOptions = {
-    origin:'https://e-tutor-umber.vercel.app',
+    origin:'https://e-tutor-server-api-gateway.onrender.com',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
   }
