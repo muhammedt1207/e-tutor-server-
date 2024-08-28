@@ -24,11 +24,11 @@ app.use(cors(corsOptions))
 
 
 const routeConfigs = [
-    { path: '/api/auth', destinationUrl:process.env.AUTH_URL  },
-    { path:'/api/user'  ,destinationUrl:process.env.USER_URL},
-    {path:'/api/course',destinationUrl:process.env.COURSE_URL},
-    {path:'/api/payment',destinationUrl:process.env.PAYMENT_URL},
-    {path:'/api/chat',destinationUrl:process.env.CHAT_URL}
+    { path: '/auth', destinationUrl:process.env.AUTH_URL  },
+    { path:'/user'  ,destinationUrl:process.env.USER_URL},
+    {path:'/course',destinationUrl:process.env.COURSE_URL},
+    {path:'/payment',destinationUrl:process.env.PAYMENT_URL},
+    {path:'/chat',destinationUrl:process.env.CHAT_URL}
 ];
 console.log(routeConfigs);
 
