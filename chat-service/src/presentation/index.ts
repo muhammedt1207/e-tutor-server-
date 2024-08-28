@@ -20,10 +20,12 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(morgan('dev'))
 const server =http.createServer(app)
-app.use(cors({
-  origin: 'http://localhost:5173',
-  credentials: true
-}));
+const corsOptions = {
+  origin:'https://e-tutor-umber.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}
+app.use(cors(corsOptions))
 connectSocketIo(server)
 app.use('/',router(dependancies))
 app.use('/api/chat',router(dependancies))

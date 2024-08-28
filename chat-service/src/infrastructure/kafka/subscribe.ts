@@ -11,7 +11,7 @@ export interface ISussscriber{
 
 }
 
-export interface IAuthSubsciber extends Pick<ISussscriber,18|'otp'|'userCreated'|'updateUser'|'acceptInstructors'|'createChat'|'createGroupChat'|'addToGroup'>{}
+export interface IAuthSubsciber extends Pick<ISussscriber,'otp'|'userCreated'|'updateUser'|'acceptInstructors'|'createChat'|'createGroupChat'|'addToGroup'>{}
 export const    createSubscriber=():IAuthSubsciber=>{
     return{
         userCreated:userCreatedConsumer,
@@ -20,7 +20,7 @@ export const    createSubscriber=():IAuthSubsciber=>{
         createChat:createChat,
         createGroupChat:createGroupChat,
         addToGroup:addToGroup,
-        otp:otp,
-        18:otp
+        otp:otp
+        
     }
 }

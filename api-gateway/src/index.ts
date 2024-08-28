@@ -13,7 +13,7 @@ app.use(cookieParser())
 app.use(morgan('tiny'))
 
 
-const allowedOrigins = ['e-tutor-umber.vercel.app'].filter(Boolean) as string[];
+const allowedOrigins = ['https://e-tutor-umber.vercel.app'].filter(Boolean) as string[];
 const corsOptions={
     origin:allowedOrigins,
     credentials:true

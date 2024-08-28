@@ -7,13 +7,19 @@ import morgan from 'morgan'
 import mongoSanitize from "express-mongo-sanitize"
 import { errorHandler } from '../_lib/http/common/error';
 import helmet from 'helmet';
+import cors from 'cors'
 dotenv.config();
 
 
 const app:Application =express();
 const PORT:number=Number(process.env.port)||8081
 
-
+const corsOptions = {
+  origin:'https://e-tutor-umber.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+}
+app.use(cors(corsOptions));
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
