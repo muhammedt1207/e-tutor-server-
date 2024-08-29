@@ -8,7 +8,7 @@ const socketIo = require('socket.io');
 const connectSocketIo = (server: Server) => {
   const io = socketIo(server, {
     cors: {
-      origin: ['http://localhost:5173'],
+      origin: ['https://e-tutor-umber.vercel.app'],
       methods: ['GET', 'POST'],
       credentials: true,
     },
