@@ -16,12 +16,12 @@ export class ConsumerService implements OnModuleInit {
   ) {
     this.kafka = new Kafka({
       clientId: 'course-client',
-      brokers: ['pkc-41p56.asia-south1.gcp.confluent.cloud:9092'],
+      brokers: ['pkc-xrnwx.asia-south2.gcp.confluent.cloud:9092'],
       ssl: true,
       sasl: {
         mechanism: 'plain',
-        username: 'VLNLXJWK6RGUAVPV',
-        password: 'aSPSOZ71Ksorv3qvBkuQZFR3ZxQ6h13TNXXEWMagufXLMjQuFmVlN0c3/c5jAr+Q'
+        username: '4T6M65RRFRWERULZ',
+        password: 'GSpvwMVLNiwEjytWfbNnRkJV9oequFuSY8Bii0jaMHbHG9b/GOHBHRtdBt5YqzGD'
       }
     });
     this.consumer = this.kafka.consumer({ groupId: 'course-service' });
